@@ -37,7 +37,21 @@ jobs:
           run: terraform init
           working-directory: ./terraform/backend
 
-        - id: plan
+        # - name: Terraform plan
+        #   id: plan
+        #   run: terraform plan -no-color
+        #   working-directory: ./terraform/backend
+        # #   continue-on-error: true
+        # #   env:
+        # #     ARM_CLIENT_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        # #     ARM_CLIENT_SECRET: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+        # - run: echo ${{ steps.plan.outputs.stdout }}
+        # - run: echo ${{ steps.plan.outputs.stderr }}
+        # - run: echo ${{ steps.plan.outputs.exitcode }}
+
+        - name: Terraform apply backend
+          id: apply-backend
           run: terraform plan -no-color
           working-directory: ./terraform/backend
         #   continue-on-error: true
@@ -45,17 +59,17 @@ jobs:
         #     ARM_CLIENT_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         #     ARM_CLIENT_SECRET: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-        - run: echo ${{ steps.plan.outputs.stdout }}
-        - run: echo ${{ steps.plan.outputs.stderr }}
-        - run: echo ${{ steps.plan.outputs.exitcode }}
+        - run: echo ${{ steps.apply-backend.outputs.stdout }}
+        - run: echo ${{ steps.apply-backend.outputs.stderr }}
+        - run: echo ${{ steps.apply-backend.outputs.exitcode }}
 
         # - name: Terraform Apply Backend
         #     run: |
         #         cd terraform/backend
         #         terraform apply -auto-approve
 
-        # - name: Move terraform.tfstate to /terraform/aws/ directory
-        #     run: cp terraform/backend/terraform.tfstate terraform/aws
+        - name: Move terraform state to /terraform/aws/ directory
+          run: cp ./terraform/backend/terraform.tfstate ./terraform/aws
 
         # - name: Terraform Init Infra
         #     run: |
