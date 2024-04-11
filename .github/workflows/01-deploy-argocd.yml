@@ -72,6 +72,7 @@ jobs:
               git commit -m "Frontend hosts URLs updated by GitHub Actions"
               git push
 
+
 # - script: |
 #     echo "DEV:" > frontend_endpoints.txt
 #     echo "$(cat host_endpoint.txt)/dev/" >> frontend_endpoints.txt
