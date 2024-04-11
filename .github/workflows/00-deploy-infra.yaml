@@ -11,8 +11,8 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-        # - name: Checkout code
-        #     uses: actions/checkout@v2
+        - name: Checkout code
+          uses: actions/checkout@v3
 
         # - name: Setup Terraform
         #     uses: hashicorp/setup-terraform@v1
@@ -28,7 +28,7 @@ jobs:
         #         cd terraform/backend
         #         terraform init
 
-        - name: Terraform Init Backend
+        - name: Terraform init Backend
           run: terraform init
           working-directory: ./terraform/backend
 
