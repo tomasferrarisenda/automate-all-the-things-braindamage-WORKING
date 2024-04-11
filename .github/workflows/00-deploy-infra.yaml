@@ -101,11 +101,11 @@ jobs:
             echo "$(terraform -chdir=./terraform/aws output -raw elasticache_stage_primary_endpoint_address)" > elasticache_stage_endpoint.txt
             echo "$(terraform -chdir=./terraform/aws output -raw elasticache_prod_primary_endpoint_address)" > elasticache_prod_endpoint.txt
 
-        # - name: Modify values for each environment
-        #   run: |
-        #     sed -i "s/redis_host:.*/redis_host: $(cat elasticache_dev_endpoint.txt | tr -d '\n')/g" ./helm/my-app/backend/environments/values-dev.yaml
-        #     sed -i "s/redis_host:.*/redis_host: $(cat elasticache_stage_endpoint.txt | tr -d '\n')/g" ./helm/my-app/backend/environments/values-stage.yaml
-        #     sed -i "s/redis_host:.*/redis_host: $(cat elasticache_prod_endpoint.txt | tr -d '\n')/g" ./helm/my-app/backend/environments/values-prod.yaml
+        - name: Modify values for each environment
+          run: |
+            sed -i "s/redis_host:.*/redis_host: $(cat elasticache_dev_endpoint.txt | tr -d '\n')/g" ./helm/my-app/backend/environments/values-dev.yaml
+            sed -i "s/redis_host:.*/redis_host: $(cat elasticache_stage_endpoint.txt | tr -d '\n')/g" ./helm/my-app/backend/environments/values-stage.yaml
+            sed -i "s/redis_host:.*/redis_host: $(cat elasticache_prod_endpoint.txt | tr -d '\n')/g" ./helm/my-app/backend/environments/values-prod.yaml
 
         # - name: Commit changes to GitHub
         #     run: |
