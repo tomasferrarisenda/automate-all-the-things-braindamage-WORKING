@@ -115,7 +115,7 @@ jobs:
                 git commit -m "ElastiCache endpoints updated in environments values.yaml files by GitHub Actions"
                 git push
 
-            # git push --set-upstream origin main
+        # git push --set-upstream origin main
 
         # - name: Save SSH command
         #     run: |
