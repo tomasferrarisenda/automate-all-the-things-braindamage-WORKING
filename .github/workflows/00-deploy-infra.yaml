@@ -95,11 +95,11 @@ jobs:
         - name: Update repo
           run: git pull origin main
 
-        # - name: Save ElastiCache DBs endpoints
-        #   run: |
-        #     echo "$(terraform -chdir=./terraform/aws output -raw elasticache_dev_primary_endpoint_address)" > elasticache_dev_endpoint.txt
-        #     echo "$(terraform -chdir=./terraform/aws output -raw elasticache_stage_primary_endpoint_address)" > elasticache_stage_endpoint.txt
-        #     echo "$(terraform -chdir=./terraform/aws output -raw elasticache_prod_primary_endpoint_address)" > elasticache_prod_endpoint.txt
+        - name: Save ElastiCache DBs endpoints
+          run: |
+            echo "$(terraform -chdir=./terraform/aws output -raw elasticache_dev_primary_endpoint_address)" > elasticache_dev_endpoint.txt
+            echo "$(terraform -chdir=./terraform/aws output -raw elasticache_stage_primary_endpoint_address)" > elasticache_stage_endpoint.txt
+            echo "$(terraform -chdir=./terraform/aws output -raw elasticache_prod_primary_endpoint_address)" > elasticache_prod_endpoint.txt
 
         # - name: Modify values for each environment
         #   run: |
