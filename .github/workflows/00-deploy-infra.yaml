@@ -52,7 +52,7 @@ jobs:
 
         - name: Terraform apply backend
           id: apply-backend
-          run: terraform plan -no-color
+          run: terraform apply -no-color
           working-directory: ./terraform/backend
         #   continue-on-error: true
         #   env:
