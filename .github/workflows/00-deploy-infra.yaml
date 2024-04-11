@@ -1,0 +1,94 @@
+name: deploy-infra
+
+on:
+    workflow_dispatch:
+
+env:
+    AWS_REGION: us-east-1
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+        # - name: Checkout code
+        #     uses: actions/checkout@v2
+
+        # - name: Setup Terraform
+        #     uses: hashicorp/setup-terraform@v1
+        #     with:
+        #         terraform_version: 1.4.6
+
+        - uses: hashicorp/setup-terraform@v3
+          with:
+            terraform_version: "1.4.6"
+
+        # - name: Terraform Init Backend
+        #     run: |
+        #         cd terraform/backend
+        #         terraform init
+
+        - run: terraform init
+            working-directory: terraform/backend
+
+        - id: plan
+          run: terraform plan -no-color
+            working-directory: terraform/backend
+
+        - run: echo ${{ steps.plan.outputs.stdout }}
+        - run: echo ${{ steps.plan.outputs.stderr }}
+        - run: echo ${{ steps.plan.outputs.exitcode }}
+
+        # - name: Terraform Apply Backend
+        #     run: |
+        #         cd terraform/backend
+        #         terraform apply -auto-approve
+
+        # - name: Move terraform.tfstate to /terraform/aws/ directory
+        #     run: cp terraform/backend/terraform.tfstate terraform/aws
+
+        # - name: Terraform Init Infra
+        #     run: |
+        #         cd terraform/aws
+        #         terraform init -force-copy
+
+        # - name: Terraform Apply Infra
+        #     run: |
+        #         cd terraform/aws
+        #         terraform apply -auto-approve
+
+        # - name: Update repo
+        #     run: git pull origin main
+
+        # - name: Save ElastiCache DBs endpoints
+        #     run: |
+        #         echo "$(terraform -chdir=terraform/aws output -raw elasticache_dev_primary_endpoint_address)" > elasticache_dev_endpoint.txt
+        #         echo "$(terraform -chdir=terraform/aws output -raw elasticache_stage_primary_endpoint_address)" > elasticache_stage_endpoint.txt
+        #         echo "$(terraform -chdir=terraform/aws output -raw elasticache_prod_primary_endpoint_address)" > elasticache_prod_endpoint.txt
+
+        # - name: Modify values for each environment
+        #     run: |
+        #         sed -i "s/redis_host:.*/redis_host: $(cat elasticache_dev_endpoint.txt | tr -d '\n')/g" helm/my-app/backend/environments/values-dev.yaml
+        #         sed -i "s/redis_host:.*/redis_host: $(cat elasticache_stage_endpoint.txt | tr -d '\n')/g" helm/my-app/backend/environments/values-stage.yaml
+        #         sed -i "s/redis_host:.*/redis_host: $(cat elasticache_prod_endpoint.txt | tr -d '\n')/g" helm/my-app/backend/environments/values-prod.yaml
+
+        # - name: Push changes to GitHub
+        #     run: |
+        #         git config --global user.email "GitHubActions@Build&DeployAppPipeline.com"
+        #         git config --global user.name "GitHub Actions - Build & Deploy App Pipeline"
+        #         git checkout -b main
+        #         git add helm/my-app/backend/environments/
+        #         git commit -m "ElastiCache endpoints updated in environments values.yaml files by GitHub Actions"
+        #         git push --set-upstream origin main
+
+        # - name: Save SSH command
+        #     run: |
+        #         echo "Assuming you are on the root directory of the automate-all-the-things repo, run this:" > ssh-to-bastion.txt
+        #         echo "chmod 400 terraform/aws/templates/private-key" >> ssh-to-bastion.txt
+        #         echo "ssh -i terraform/aws/templates/private-key ubuntu@$(terraform -chdir=terraform/aws output -raw ssh_host)" >> ssh-to-bastion.txt
+
+        # - name: Upload SSH command as artifact
+        #     uses: actions/upload-artifact@v2
+        #     with:
+        #         name: SSH to bastion
+        #         path: ssh-to-bastion.txt
