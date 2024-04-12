@@ -11,7 +11,7 @@ env:
   # TF_INPUT: false # This makes it so Terraform doesn't ask for confirmation when running apply
 
 jobs:
-  deploy-infra:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,12 +35,12 @@ jobs:
 
       - name: Terraform init Backend
         run: terraform init
-        working-directory: ./terraform/backend
+        working-directory: terraform/backend
 
       # - name: Terraform plan
       #   id: plan
       #   run: terraform plan -no-color
-      #   working-directory: ./terraform/backend
+      #   working-directory: terraform/backend
       # #   continue-on-error: true
       # #   env:
       # #     ARM_CLIENT_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -53,7 +53,7 @@ jobs:
       - name: Terraform apply backend
       #   id: apply-backend
         run: terraform apply -auto-approve
-        working-directory: ./terraform/backend
+        working-directory: terraform/backend
       #   continue-on-error: true
       #   env:
       #     ARM_CLIENT_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -71,7 +71,7 @@ jobs:
       #         terraform apply -auto-approve
 
       - name: Move terraform state to /terraform/aws/ directory
-        run: cp ./terraform/backend/terraform.tfstate ./terraform/aws
+        run: cp terraform/backend/terraform.tfstate terraform/aws
 
       # - name: Terraform Init Infra
       #     run: |
@@ -80,7 +80,7 @@ jobs:
 
       - name: Terraform init actual infrastructure
         run: terraform init -force-copy
-        working-directory: ./terraform/aws
+        working-directory: terraform/aws
 
       # - name: Terraform Apply Infra
       #     run: |
@@ -90,28 +90,28 @@ jobs:
       - name: Terraform apply actual infrastructure
       #   id: apply-actual-infrastructure
         run: terraform apply -auto-approve
-        working-directory: ./terraform/aws
+        working-directory: terraform/aws
 
       - name: Update repo
         run: git pull origin main
 
       - name: Save ElastiCache DBs endpoints
         run: |
-          echo "$(terraform -chdir=./terraform/aws output -raw elasticache_dev_primary_endpoint_address)" > elasticache_dev_endpoint.txt
-          echo "$(terraform -chdir=./terraform/aws output -raw elasticache_stage_primary_endpoint_address)" > elasticache_stage_endpoint.txt
-          echo "$(terraform -chdir=./terraform/aws output -raw elasticache_prod_primary_endpoint_address)" > elasticache_prod_endpoint.txt
+          echo "$(terraform -chdir=terraform/aws output -raw elasticache_dev_primary_endpoint_address)" > elasticache_dev_endpoint.txt
+          echo "$(terraform -chdir=terraform/aws output -raw elasticache_stage_primary_endpoint_address)" > elasticache_stage_endpoint.txt
+          echo "$(terraform -chdir=terraform/aws output -raw elasticache_prod_primary_endpoint_address)" > elasticache_prod_endpoint.txt
 
       - name: Modify values for each environment
         run: |
-          sed -i "s/redis_host:.*/redis_host: $(cat elasticache_dev_endpoint.txt | tr -d '\n')/g" ./helm/my-app/backend/environments/values-dev.yaml
-          sed -i "s/redis_host:.*/redis_host: $(cat elasticache_stage_endpoint.txt | tr -d '\n')/g" ./helm/my-app/backend/environments/values-stage.yaml
-          sed -i "s/redis_host:.*/redis_host: $(cat elasticache_prod_endpoint.txt | tr -d '\n')/g" ./helm/my-app/backend/environments/values-prod.yaml
+          sed -i "s/redis_host:.*/redis_host: $(cat elasticache_dev_endpoint.txt | tr -d '\n')/g" helm/my-app/backend/environments/values-dev.yaml
+          sed -i "s/redis_host:.*/redis_host: $(cat elasticache_stage_endpoint.txt | tr -d '\n')/g" helm/my-app/backend/environments/values-stage.yaml
+          sed -i "s/redis_host:.*/redis_host: $(cat elasticache_prod_endpoint.txt | tr -d '\n')/g" helm/my-app/backend/environments/values-prod.yaml
 
       - name: Commit changes to GitHub
         run: |
           git config --global user.email "GitHubActions@DeployInfraWorkflow.com"
           git config --global user.name "GitHub Actions - Deploy Infra Workflow"
-          git add ./helm/my-app/backend/environments/
+          git add helm/my-app/backend/environments/
           git commit -m "ElastiCache endpoints updated in environments values.yaml files by GitHub Actions"
           git push
 
