@@ -45,12 +45,16 @@ jobs:
       #   run: git pull
         # run: git pull origin main
 
+      - name: Update tag in values-dev.yaml
+        run: |
+          sed 's/tag:.*/tag: $(Build.BuildId)/g' helm/my-app/backend/environments/values-dev.yaml > helm/my-app/backend/environments/values-dev.temp
+          mv helm/my-app/backend/environments/values-dev.temp helm/my-app/backend/environments/values-dev.yaml
 
       - name: Commit changes to GitHub
         run: |
           git pull
-          git config --global user.email "GitHubActions@SealedSecretWorkflow.com"
-          git config --global user.name "GitHub Actions - Sealed Secret Workflow"
-          git add ./helm/my-app/frontend/values.yaml
-          git commit -m "Frontend hosts URLs updated by GitHub Actions"
+          git config --global user.email "GitHubActions@Build&DeployBackendWorkflow.com"
+          git config --global user.name "GitHub Actions - Build & Deploy Backend Workflow"
+          git add helm/my-app/backend/environments/values-dev.yaml 
+          git commit -m "Backend image tag updated to ${{github.run_number}} by GitHub Actions"
           git push
