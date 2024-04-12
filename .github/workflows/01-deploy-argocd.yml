@@ -9,7 +9,6 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   APP_NAME: anna
 
-
 jobs:
   deploy-argocd:
     runs-on: ubuntu-latest
@@ -58,7 +57,7 @@ jobs:
           kubectl get -n service-mesh service istio-gateway -o=jsonpath="{.status.loadBalancer.ingress[].hostname}{'\n'}" > host_endpoint.txt
 
       - name: Modify values
-        if: always()
+        if: ${{ always() }}
         run: |
           sed -i "s/host:.*/host: $(cat host_endpoint.txt | tr -d '\n') # This value was modified by the deploy-argocd pipeline/g" ./helm/my-app/frontend/values.yaml    
 

@@ -92,8 +92,10 @@ jobs:
         run: terraform apply -auto-approve
         working-directory: terraform/aws
 
+      # The terraform apply takes a long time so we run a git pull in case there have been any changes on the repo
       - name: Update repo
-        run: git pull origin main
+        # run: git pull origin main
+        run: git pull
 
       - name: Save ElastiCache DBs endpoints
         run: |

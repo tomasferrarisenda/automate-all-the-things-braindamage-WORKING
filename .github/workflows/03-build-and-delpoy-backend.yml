@@ -32,9 +32,25 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
 
-  update-image-tag:
-    name: Update image tag
+  deploy-dev:
+    name: Update image tag for dev environment
+    if: ${{ success() }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      # We update the local repo with a pull just in case there have been any recent modifications
+      # - name: Update repo
+      #   run: git pull
+        # run: git pull origin main
+
+
+      - name: Commit changes to GitHub
+        run: |
+          git pull
+          git config --global user.email "GitHubActions@SealedSecretWorkflow.com"
+          git config --global user.name "GitHub Actions - Sealed Secret Workflow"
+          git add ./helm/my-app/frontend/values.yaml
+          git commit -m "Frontend hosts URLs updated by GitHub Actions"
+          git push
