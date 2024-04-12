@@ -71,42 +71,39 @@ jobs:
           git commit -m "Frontend hosts URLs updated by GitHub Actions"
           git push
 
+      - name: 'Save frontend endpoints'
+        run: |
+          echo "DEV:" > frontend_endpoints.txt
+          echo "$(cat host_endpoint.txt)/dev/" >> frontend_endpoints.txt
+          echo " " >> frontend_endpoints.txt
+          echo "STAGE:" >> frontend_endpoints.txt
+          echo "$(cat host_endpoint.txt)/stage/" >> frontend_endpoints.txt
+          echo " " >> frontend_endpoints.txt
+          echo "PROD:" >> frontend_endpoints.txt
+          echo "$(cat host_endpoint.txt)/" >> frontend_endpoints.txt
 
-# - script: |
-#     echo "DEV:" > frontend_endpoints.txt
-#     echo "$(cat host_endpoint.txt)/dev/" >> frontend_endpoints.txt
-#     echo " " >> frontend_endpoints.txt
-#     echo "STAGE:" >> frontend_endpoints.txt
-#     echo "$(cat host_endpoint.txt)/stage/" >> frontend_endpoints.txt
-#     echo " " >> frontend_endpoints.txt
-#     echo "PROD:" >> frontend_endpoints.txt
-#     echo "$(cat host_endpoint.txt)/" >> frontend_endpoints.txt
-#   displayName: 'Save Endpoints'
+      - name: Publish frontend endpoints
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-endpoints
+          path: frontend-endpoints.txt
 
-# - task: PublishBuildArtifacts@1
-#   displayName: 'Export Frontend Endpoints'
-#   inputs:
-#     PathtoPublish: 'frontend_endpoints.txt'
-#     ArtifactName: 'Access'
-#     publishLocation: 'Container'
+      - name: 'Save ArgoCD credentials'
+        run: |
+          while [[ $(kubectl get ingress -n argocd $(kubectl get ingress -n argocd | awk 'NR>1{print $1}') -o 'jsonpath={.status.loadBalancer.ingress[0].hostname}') == '' ]]; do
+            echo "Ingress is not ready. Checking again in 5 seconds..."
+            sleep 5
+          done
+          kubectl get ingress -n argocd $(kubectl get ingress -n argocd | awk 'NR>1{print $1}') -o=jsonpath="{'http://'}{.status.loadBalancer.ingress[].hostname}{'\n'}" > argocd-access.txt
+          echo "admin" >> argocd-access.txt
+          while [[ $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}") == '' ]]; do
+            echo "Secret is not ready. Checking again in 5 seconds..."
+            sleep 5
+          done
+          echo $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d) >> argocd-access.txt
 
-# - script: |
-#     while [[ $(kubectl get ingress -n argocd $(kubectl get ingress -n argocd | awk 'NR>1{print $1}') -o 'jsonpath={.status.loadBalancer.ingress[0].hostname}') == '' ]]; do
-#       echo "Ingress is not ready. Checking again in 5 seconds..."
-#       sleep 5
-#     done
-#     kubectl get ingress -n argocd $(kubectl get ingress -n argocd | awk 'NR>1{print $1}') -o=jsonpath="{'http://'}{.status.loadBalancer.ingress[].hostname}{'\n'}" > argocd-access.txt
-#     echo "admin" >> argocd-access.txt
-#     while [[ $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}") == '' ]]; do
-#       echo "Secret is not ready. Checking again in 5 seconds..."
-#       sleep 5
-#     done
-#     echo $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d) >> argocd-access.txt
-#   displayName: 'Save Access'
-
-# - task: PublishBuildArtifacts@1
-#   displayName: 'Export Access'
-#   inputs:
-#     PathtoPublish: 'argocd-access.txt'
-#     ArtifactName: 'Access'
-#     publishLocation: 'Container'
+      - name: Publish ArgoCD credentials
+        uses: actions/upload-artifact@v4
+        with:
+          name: argocd-access
+          path: argocd-access.txt
