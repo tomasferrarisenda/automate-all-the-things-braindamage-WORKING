@@ -47,7 +47,7 @@ jobs:
 
       - name: Update tag in values-dev.yaml
         run: |
-          sed 's/tag:.*/tag: $(Build.BuildId)/g' helm/my-app/backend/environments/values-dev.yaml > helm/my-app/backend/environments/values-dev.temp
+          sed 's/tag:.*/tag: ${{github.run_number}}/g' helm/my-app/backend/environments/values-dev.yaml > helm/my-app/backend/environments/values-dev.temp
           mv helm/my-app/backend/environments/values-dev.temp helm/my-app/backend/environments/values-dev.yaml
 
       - name: Commit changes to GitHub
@@ -56,5 +56,61 @@ jobs:
           git config --global user.email "GitHubActions@Build&DeployBackendWorkflow.com"
           git config --global user.name "GitHub Actions - Build & Deploy Backend Workflow"
           git add helm/my-app/backend/environments/values-dev.yaml 
+          git commit -m "Backend image tag updated to ${{github.run_number}} by GitHub Actions"
+          git push
+
+
+  deploy-stage:
+    name: Update image tag for stage environment
+    if: ${{ success() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # We update the local repo with a pull just in case there have been any recent modifications
+      # - name: Update repo
+      #   run: git pull
+        # run: git pull origin main
+
+      - name: Update tag in values-stage.yaml
+        run: |
+          sed 's/tag:.*/tag: ${{github.run_number}}/g' helm/my-app/backend/environments/values-stage.yaml > helm/my-app/backend/environments/values-stage.temp
+          mv helm/my-app/backend/environments/values-stage.temp helm/my-app/backend/environments/values-stage.yaml
+
+      - name: Commit changes to GitHub
+        run: |
+          git pull
+          git config --global user.email "GitHubActions@Build&DeployBackendWorkflow.com"
+          git config --global user.name "GitHub Actions - Build & Deploy Backend Workflow"
+          git add helm/my-app/backend/environments/values-stage.yaml 
+          git commit -m "Backend image tag updated to ${{github.run_number}} by GitHub Actions"
+          git push
+
+
+  deploy-prod:
+    name: Update image tag for prod environment
+    if: ${{ success() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # We update the local repo with a pull just in case there have been any recent modifications
+      # - name: Update repo
+      #   run: git pull
+        # run: git pull origin main
+
+      - name: Update tag in values-prod.yaml
+        run: |
+          sed 's/tag:.*/tag: ${{github.run_number}}/g' helm/my-app/backend/environments/values-prod.yaml > helm/my-app/backend/environments/values-prod.temp
+          mv helm/my-app/backend/environments/values-prod.temp helm/my-app/backend/environments/values-prod.yaml
+
+      - name: Commit changes to GitHub
+        run: |
+          git pull
+          git config --global user.email "GitHubActions@Build&DeployBackendWorkflow.com"
+          git config --global user.name "GitHub Actions - Build & Deploy Backend Workflow"
+          git add helm/my-app/backend/environments/values-prod.yaml 
           git commit -m "Backend image tag updated to ${{github.run_number}} by GitHub Actions"
           git push
