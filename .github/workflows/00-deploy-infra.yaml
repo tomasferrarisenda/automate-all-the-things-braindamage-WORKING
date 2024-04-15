@@ -122,8 +122,7 @@ jobs:
         run: |
           ls -l
           cat elasticache_dev_endpoint.txt
-          cat elasticache_stage_endpoint.txt
-          cat elasticache_prod_endpoint.txt
+          cat helm/my-app/backend/environments/values-dev.yaml
           git config --global user.email "GitHubActions@DeployInfraWorkflow.com"
           git config --global user.name "GitHub Actions - Deploy Infra Workflow"
           git add ./helm/my-app/backend/environments/values-dev.yaml
