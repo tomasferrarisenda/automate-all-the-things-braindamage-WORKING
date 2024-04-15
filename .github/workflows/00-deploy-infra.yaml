@@ -136,8 +136,8 @@ jobs:
           echo "ssh -i terraform/aws/templates/private-key ubuntu@$(terraform -chdir=terraform/aws output -raw ssh_host)" >> ssh-to-bastion.txt
           cat ssh-to-bastion.txt
 
-      # - name: Upload SSH command as artifact
-      #     uses: actions/upload-artifact@v2
-      #     with:
-      #         name: SSH to bastion
-      #         path: ssh-to-bastion.txt
+      - name: Upload SSH command to connect to bastion
+        uses: actions/upload-artifact@v4
+        with:
+          name: ssh-to-bastion
+          path: ssh-to-bastion.txt
