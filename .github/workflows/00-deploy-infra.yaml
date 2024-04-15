@@ -121,7 +121,9 @@ jobs:
         if: ${{ always() }}
         run: |
           ls -l
-          tree
+          cat elasticache_dev_endpoint.txt
+          cat elasticache_stage_endpoint.txt
+          cat elasticache_prod_endpoint.txt
           git config --global user.email "GitHubActions@DeployInfraWorkflow.com"
           git config --global user.name "GitHub Actions - Deploy Infra Workflow"
           git add ./helm/my-app/backend/environments/values-dev.yaml
