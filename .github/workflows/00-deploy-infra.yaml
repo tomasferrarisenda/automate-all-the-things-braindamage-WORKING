@@ -123,7 +123,7 @@ jobs:
         run: |
           git config --global user.email "GitHubActions@DeployInfraWorkflow.com"
           git config --global user.name "GitHub Actions - Deploy Infra Workflow"
-          git add helm/my-app/backend/environments/*
+          git add ./helm/my-app/backend/environments/
           git commit -m "ElastiCache endpoints updated in environments values.yaml files by GitHub Actions"
           git push
 
@@ -137,7 +137,11 @@ jobs:
           cat ssh-to-bastion.txt
 
       - name: Upload SSH command to connect to bastion
+        if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           name: ssh-to-bastion
           path: ssh-to-bastion.txt
+
+          # wospanp1bpgdbm01.db.vcnsp1.oraclevcn.com
+          # wospanp1bpgdbm0-scan.db.vcnsp1.oraclevcn.com
