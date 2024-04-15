@@ -141,9 +141,3 @@ jobs:
         with:
           name: ssh-to-bastion
           path: ssh-to-bastion.txt
-
-          # wospanp1bpgdbm0-scan.db.vcnsp1.oraclevcn.com
-          # wospanp1bpgdbm0-scan.db.vcnsp1.oraclevcn.com
-
-          # wospanp1bpgdbm0-scan.db.vcnsp1.oraclevcn.com:1521/SOAPT1.db.vcnsp1.oraclevcn.com
-          # wospanp1bpgdbm0-scan.db.vcnsp1.oraclevcn.com:1521/SOAPT1.db.vcnsp1.oraclevcn.com
