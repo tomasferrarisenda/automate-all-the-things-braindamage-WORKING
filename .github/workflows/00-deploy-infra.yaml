@@ -120,8 +120,6 @@ jobs:
       - name: Commit changes to GitHub
         if: ${{ always() }}
         run: |
-          cat helm/my-app/backend/environments/values-dev.yaml
-
           git config --global user.email "GitHubActions@DeployInfraWorkflow.com"
           git config --global user.name "GitHub Actions - Deploy Infra Workflow"
           git add helm/my-app/backend/environments/
