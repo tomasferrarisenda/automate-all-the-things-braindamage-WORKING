@@ -123,7 +123,7 @@ jobs:
         run: |
           git config --global user.email "GitHubActions@DeployInfraWorkflow.com"
           git config --global user.name "GitHub Actions - Deploy Infra Workflow"
-          git add /helm/my-app/backend/environments/values-dev.yaml
+          git add helm/my-app/backend/environments/values-dev.yaml
           git commit -m "ElastiCache endpoints updated in environments values.yaml files by GitHub Actions"
           git push
 
