@@ -1,4 +1,4 @@
-name: Deploy ArgoCD
+name: 01-Deploy ArgoCD
 # SACAR ./ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 on:
   workflow_dispatch:
