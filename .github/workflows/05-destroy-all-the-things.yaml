@@ -1,5 +1,4 @@
 name: 05-Destroy infrastructure
-# SACAR ./ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 on:
   workflow_dispatch:
@@ -25,9 +24,9 @@ jobs:
 
       - name: Terraform init
         run: terraform init
-        working-directory: ./terraform/aws
+        working-directory: terraform/aws
 
       - name: Terraform destroy
         run: terraform destroy -auto-approve
-        working-directory: ./terraform/aws
+        working-directory: terraform/aws
         continue-on-error: true
