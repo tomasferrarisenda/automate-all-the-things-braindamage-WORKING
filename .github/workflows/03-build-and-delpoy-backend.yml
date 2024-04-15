@@ -1,4 +1,4 @@
-name: Build & deploy my-app-backend image
+name: 03-Build & deploy my-app-backend image
 
 on:
   workflow_dispatch:

@@ -71,8 +71,8 @@ jobs:
       #         terraform apply -auto-approve
 
       - name: Move terraform state to /terraform/aws/ directory
-        run: cp terraform/backend/terraform.tfstate terraform/aws
         if: ${{ success() }}
+        run: cp terraform/backend/terraform.tfstate terraform/aws
 
       # - name: Terraform Init Infra
       #     run: |
@@ -80,9 +80,9 @@ jobs:
       #         terraform init -force-copy
 
       - name: Terraform init actual infrastructure
+        if: ${{ always() }}
         run: terraform init -force-copy
         working-directory: terraform/aws
-        if: ${{ always() }}
 
 
       # - name: Terraform Apply Infra
@@ -100,8 +100,8 @@ jobs:
       # The terraform apply takes a long time so we run a git pull in case there have been any changes on the repo
       - name: Update repo
         # run: git pull origin main
-        run: git pull
         if: ${{ always() }}
+        run: git pull
 
 
       - name: Save ElastiCache DBs endpoints
