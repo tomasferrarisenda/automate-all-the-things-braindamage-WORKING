@@ -99,7 +99,6 @@ jobs:
 
       # The terraform apply takes a long time so we run a git pull in case there have been any changes on the repo
       - name: Update repo
-        # run: git pull origin main
         if: ${{ always() }}
         run: git pull
 
@@ -121,9 +120,11 @@ jobs:
       - name: Commit changes to GitHub
         if: ${{ always() }}
         run: |
+          ls -l
+          tree
           git config --global user.email "GitHubActions@DeployInfraWorkflow.com"
           git config --global user.name "GitHub Actions - Deploy Infra Workflow"
-          git add helm/my-app/backend/environments/values-dev.yaml
+          git add ./helm/my-app/backend/environments/values-dev.yaml
           git commit -m "ElastiCache endpoints updated in environments values.yaml files by GitHub Actions"
           git push
 
