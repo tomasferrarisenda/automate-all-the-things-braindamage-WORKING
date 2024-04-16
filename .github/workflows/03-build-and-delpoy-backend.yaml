@@ -9,7 +9,7 @@ on:
       - 'application-code/my-app/backend/**'
 
 env:
-  SYSTEM: anna # This value was modified by the initial-setup python script
+  APP_NAME: anna # This value was modified by the initial-setup python script
   SERVICE: backend
 
 jobs:
@@ -23,11 +23,11 @@ jobs:
       - name: Build and push Docker image
         uses: mr-smithers-excellent/docker-build-push@v4
         with:
-          image: ${{ secrets.DOCKER_USERNAME }}/${{ env.SYSTEM }}-${{ env.SERVICE }}
+          image: ${{ secrets.DOCKER_USERNAME }}/${{ env.APP_NAME }}-${{ env.SERVICE }}
           tag: ${{ github.run_number }}
           registry: docker.io
-          directory: ${{ env.SYSTEM }}/${{ env.SERVICE }}
-          dockerfile: ${{ env.SYSTEM }}/${{ env.SERVICE }}/Dockerfile
+          directory: ${{ env.APP_NAME }}/${{ env.SERVICE }}
+          dockerfile: ${{ env.APP_NAME }}/${{ env.SERVICE }}/Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
