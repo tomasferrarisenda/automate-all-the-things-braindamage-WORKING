@@ -112,3 +112,4 @@ jobs:
           git add helm/my-app/${{ env.SERVICE }}/environments/values-prod.yaml 
           git commit -m "${{ env.SERVICE }} image tag updated to ${{github.run_number}} by GitHub Actions"
           git push
+          
