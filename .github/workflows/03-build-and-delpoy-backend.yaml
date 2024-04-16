@@ -33,7 +33,7 @@ jobs:
 
 
   deploy-dev:
-    name: Update image tag for dev environment
+    name: Update image tag for DEV environment
     # if: ${{ success() }}
     needs: build-and-push
     runs-on: ubuntu-latest
@@ -42,9 +42,8 @@ jobs:
         uses: actions/checkout@v3
 
       # We update the local repo with a pull just in case there have been any recent modifications
-      # - name: Update repo
-      #   run: git pull
-        # run: git pull origin main
+      - name: Update repo
+        run: git pull
 
       - name: Update tag in values-dev.yaml
         run: |
@@ -53,7 +52,6 @@ jobs:
 
       - name: Commit changes to GitHub
         run: |
-          git pull
           git config --global user.email "GitHubActions@Build&DeployBackendWorkflow.com"
           git config --global user.name "GitHub Actions - Build & Deploy Backend Workflow"
           git add helm/my-app/backend/environments/values-dev.yaml 
@@ -62,7 +60,7 @@ jobs:
 
 
   deploy-stage:
-    name: Update image tag for stage environment
+    name: Update image tag for STAGE environment
     # if: ${{ success() }}
     needs: deploy-dev
     runs-on: ubuntu-latest
@@ -81,7 +79,6 @@ jobs:
 
       - name: Commit changes to GitHub
         run: |
-          git pull
           git config --global user.email "GitHubActions@Build&DeployBackendWorkflow.com"
           git config --global user.name "GitHub Actions - Build & Deploy Backend Workflow"
           git add helm/my-app/backend/environments/values-stage.yaml 
@@ -90,7 +87,7 @@ jobs:
 
 
   deploy-prod:
-    name: Update image tag for prod environment
+    name: Update image tag for PROD environment
     # if: ${{ success() }}
     needs: deploy-stage
 
@@ -100,9 +97,8 @@ jobs:
         uses: actions/checkout@v3
 
       # We update the local repo with a pull just in case there have been any recent modifications
-      # - name: Update repo
-      #   run: git pull
-        # run: git pull origin main
+      - name: Update repo
+        run: git pull
 
       - name: Update tag in values-prod.yaml
         run: |
