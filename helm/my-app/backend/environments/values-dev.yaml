@@ -4,7 +4,7 @@ redis_host: master.anna-dev-elascache-rep-group.shelfr.use1.cache.amazonaws.com
 
 deployment:
   image:  
-    tag: 6
+    tag: 8
   replicas: 1
 
 secret:
