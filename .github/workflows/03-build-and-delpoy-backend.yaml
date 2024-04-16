@@ -94,6 +94,7 @@ jobs:
     name: Update image tag for prod environment
     # if: ${{ success() }}
     needs: [deploy-prod]
+    
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
