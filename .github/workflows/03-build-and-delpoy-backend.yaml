@@ -26,8 +26,8 @@ jobs:
           image: ${{ secrets.DOCKER_USERNAME }}/${{ env.APP_NAME }}-${{ env.SERVICE }}
           tag: ${{ github.run_number }}
           registry: docker.io
-          directory: ${{ env.APP_NAME }}/${{ env.SERVICE }}
-          dockerfile: ${{ env.APP_NAME }}/${{ env.SERVICE }}/Dockerfile
+          directory: my-app/${{ env.SERVICE }}
+          dockerfile: my-app/${{ env.SERVICE }}/Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
