@@ -9,7 +9,7 @@ on:
       - 'application-code/my-app/backend/**'
 
 env:
-  SYSTEM: my-app
+  SYSTEM: anna # This value was modified by the initial-setup python script
   SERVICE: backend
 
 jobs:
