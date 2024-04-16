@@ -11,7 +11,7 @@ env:
   # TF_INPUT: false # This makes it so Terraform doesn't ask for confirmation when running apply
 
 jobs:
-  deploy:
+  deploy-infra:
     runs-on: ubuntu-latest
 
     steps:
