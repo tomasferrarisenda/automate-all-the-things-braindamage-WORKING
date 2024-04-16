@@ -35,7 +35,7 @@ jobs:
   deploy-dev:
     name: Update image tag for dev environment
     # if: ${{ success() }}
-    needs: [build-and-push]
+    needs: build-and-push
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -64,7 +64,7 @@ jobs:
   deploy-stage:
     name: Update image tag for stage environment
     # if: ${{ success() }}
-    needs: [deploy-dev]
+    needs: deploy-dev
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -93,8 +93,8 @@ jobs:
   deploy-prod:
     name: Update image tag for prod environment
     # if: ${{ success() }}
-    needs: [deploy-prod]
-    
+    needs: deploy-stage
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
