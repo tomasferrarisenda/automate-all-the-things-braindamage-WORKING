@@ -113,16 +113,16 @@ jobs:
       - name: Modify values for each environment
         if: ${{ always() }}
         run: |
-          sed -i "s/redis_host:.*/redis_host: $(cat elasticache_dev_endpoint.txt | tr -d '\n')/g" helm/my-app/backend/environments/values-dev.yaml
-          sed -i "s/redis_host:.*/redis_host: $(cat elasticache_stage_endpoint.txt | tr -d '\n')/g" helm/my-app/backend/environments/values-stage.yaml
-          sed -i "s/redis_host:.*/redis_host: $(cat elasticache_prod_endpoint.txt | tr -d '\n')/g" helm/my-app/backend/environments/values-prod.yaml
+          sed -i "s/redis_host:.*/redis_host: $(cat elasticache_dev_endpoint.txt | tr -d '\n')/g" helm-charts/my-app/backend/environments/values-dev.yaml
+          sed -i "s/redis_host:.*/redis_host: $(cat elasticache_stage_endpoint.txt | tr -d '\n')/g" helm-charts/my-app/backend/environments/values-stage.yaml
+          sed -i "s/redis_host:.*/redis_host: $(cat elasticache_prod_endpoint.txt | tr -d '\n')/g" helm-charts/my-app/backend/environments/values-prod.yaml
 
       - name: Commit changes to GitHub
         if: ${{ always() }}
         run: |
           git config --global user.email "GitHubActions@DeployInfraWorkflow.com"
           git config --global user.name "GitHub Actions - Deploy Infra Workflow"
-          git add helm/my-app/backend/environments/
+          git add helm-charts/my-app/backend/environments/
           git commit -m "ElastiCache endpoints updated in environments values.yaml files by GitHub Actions"
           git push
 

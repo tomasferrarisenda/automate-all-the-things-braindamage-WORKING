@@ -13,7 +13,7 @@ spec:
     server: https://kubernetes.default.svc  
   project: service-mesh
   source:
-    path: helm/infra/flagger-loadtester
+    path: helm-charts/infra/flagger-loadtester
     helm:
       valueFiles:
         - values-custom.yaml

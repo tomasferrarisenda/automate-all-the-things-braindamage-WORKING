@@ -27,7 +27,7 @@ jobs:
         run: aws eks --region $AWS_REGION update-kubeconfig --name $APP_NAME-cluster
 
       - name: Deploy ArgoCD
-        run: helm install argocd -n argocd helm/infra/argo-cd --values helm/infra/argo-cd/values-custom.yaml --dependency-update --create-namespace
+        run: helm install argocd -n argocd helm-charts/infra/argo-cd --values helm-charts/infra/argo-cd/values-custom.yaml --dependency-update --create-namespace
 
       # This deploys the necessary resources for ArgoCD to be able to manage itslef
       - name: Make ArgoCD self-managed & implemente App of Apps pattern
@@ -38,7 +38,7 @@ jobs:
           # Then we create an application that will automatically deploy any ArgoCD AppProjects we specify in the argo-cd/self-manage/appprojects/ directory.
           kubectl create -n argocd -f argo-cd/self-manage/argocd-appprojects-application.yaml  
           
-          # Then we create an application that will monitor the helm/infra/argocd directory, the same we used to deploy ArgoCD, making ArgoCD self-managed. Any changes we apply in the helm/infra/argocd directory will be automatically applied.
+          # Then we create an application that will monitor the helm-charts/infra/argocd directory, the same we used to deploy ArgoCD, making ArgoCD self-managed. Any changes we apply in the helm-charts/infra/argocd directory will be automatically applied.
           kubectl create -n argocd -f argo-cd/self-manage/argocd-application.yaml  
 
           # Finally, we create an application that will automatically deploy any ArgoCD Applications we specify in the argo-cd/applications directory (App of Apps pattern).
@@ -59,14 +59,14 @@ jobs:
       - name: Modify values
         if: ${{ always() }}
         run: |
-          sed -i "s/host:.*/host: $(cat host_endpoint.txt | tr -d '\n') # This value was modified by the deploy-argocd pipeline/g" ./helm/my-app/frontend/values.yaml    
+          sed -i "s/host:.*/host: $(cat host_endpoint.txt | tr -d '\n') # This value was modified by the deploy-argocd pipeline/g" helm-charts/my-app/frontend/values.yaml    
 
       - name: Commit changes to GitHub
         run: |
           git pull
           git config --global user.email "GitHubActions@SealedSecretWorkflow.com"
           git config --global user.name "GitHub Actions - Sealed Secret Workflow"
-          git add helm/my-app/frontend/values.yaml
+          git add helm-charts/my-app/frontend/values.yaml
           git commit -m "Frontend hosts URLs updated by GitHub Actions"
           git push
 

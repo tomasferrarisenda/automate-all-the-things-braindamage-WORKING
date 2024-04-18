@@ -13,7 +13,7 @@ spec:
     server: https://kubernetes.default.svc  
   project: observability
   source:
-    path: helm/infra/kube-prometheus-stack
+    path: helm-charts/infra/kube-prometheus-stack
     helm:
       valueFiles:
         - values-custom.yaml

@@ -64,7 +64,7 @@ jobs:
 
 
   update-helm-values:
-    name: Update image tag for DEV environment
+    name: Update image tag in values-custom.yaml
     # if: ${{ success() }}
     needs: build-and-push
     runs-on: ubuntu-latest
@@ -78,13 +78,13 @@ jobs:
 
       - name: Update tag in values-dev.yaml
         run: |
-          sed 's/tag:.*/tag: ${{github.run_number}}/g' helm/infra/backstage/values-custom.yaml > values-custom.temp
-          mv values-custom.temp helm/infra/backstage/values-custom.yaml
+          sed 's/tag:.*/tag: ${{github.run_number}}/g' helm-charts/infra/backstage/values-custom.yaml > values-custom.temp
+          mv values-custom.temp helm-charts/infra/backstage/values-custom.yaml
 
       - name: Commit changes to GitHub
         run: |
           git config --global user.email "GitHubActions@Build&Deploy${{ env.APP_NAME }}Workflow.com"
           git config --global user.name "GitHub Actions - Build & Deploy ${{ env.APP_NAME }} Workflow"
-          git add helm/infra/backstage/values-custom.yaml
+          git add helm-charts/infra/backstage/values-custom.yaml
           git commit -m "${{ env.APP_NAME }} image tag updated to ${{github.run_number}} by GitHub Actions"
           git push

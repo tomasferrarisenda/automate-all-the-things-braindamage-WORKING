@@ -13,7 +13,7 @@ spec:
     server: https://kubernetes.default.svc  
   project: backstage
   source:
-    path: helm/infra/backstage
+    path: helm-charts/infra/backstage
     helm:
       valueFiles:
         - values-custom.yaml

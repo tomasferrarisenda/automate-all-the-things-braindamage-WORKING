@@ -13,7 +13,7 @@ spec:
     server: https://kubernetes.default.svc
   project: my-app
   source:
-    path: helm/my-app/frontend
+    path: helm-charts/my-app/frontend
     helm:
       valueFiles:
         - environments/values-dev.yaml
