@@ -10,15 +10,5 @@ yarn tsc
 # The configuration files here should match the one you use inside the Dockerfile below.
 yarn build:backend --config ../../app-config.production.yaml
 
-docker image build . -f packages/backend/Dockerfile --tag tferrari92/backstage:$IMAGE_TAG
-docker push tferrari92/backstage:$IMAGE_TAG
-
-echo "#############################################################################"
-echo "#############################################################################"
-echo "#############################################################################"
-echo " "
-echo "REMEMBER TO UPDATE THE IMAGE TAG IN THE values-custom.yaml FILE OF THE BACKSTAGE HELM CHART!!!"
-echo " "
-echo "#############################################################################"
-echo "#############################################################################"
-echo "#############################################################################"
+docker image build . -f packages/backend/Dockerfile --tag AATT_DOCKERHUB_USERNAME/backstage:$IMAGE_TAG
+docker push AATT_DOCKERHUB_USERNAME/backstage:$IMAGE_TAG
