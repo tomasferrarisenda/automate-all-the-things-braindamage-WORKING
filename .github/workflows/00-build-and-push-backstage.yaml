@@ -19,9 +19,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Update repo
+      - name: Yarn install and build
         working-directory: backstage/my-backstage
         run: |
+          # Make sure you are using Node.js version 18
+          nvm install 18
+          nvm use 18
+          nvm alias default 18
+          node --version
+          
+          # Make sure you are using Yarn version 1.22.19
+          yarn set version 1.22.19
+          yarn --version
+
           yarn install --frozen-lockfile
 
           # tsc outputs type definitions to dist-types/ in the repo root, which are then consumed by the build
