@@ -30,10 +30,10 @@ jobs:
           nvm install 18
           nvm use 18
           nvm alias default 18
-          node --version
+          echo "Node version: $(node --version)"
           
           yarn set version 1.22.19
-          yarn --version
+          echo "Yarn version: $(yarn --version)"
 
       - name: Yarn install and build
         working-directory: backstage/my-backstage
