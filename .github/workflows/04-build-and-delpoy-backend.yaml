@@ -1,4 +1,4 @@
-name: 04-Build & deploy my-app-frontend image
+name: 04-Build & deploy my-app-backend image
 
 on:
   workflow_dispatch:
@@ -6,11 +6,11 @@ on:
     branches:
       - main
     paths:
-      - 'application-code/my-app/frontend/**'
+      - 'application-code/my-app/backend/**'
 
 env:
   APP_NAME: anna # This value was modified by the initial-setup python script
-  SERVICE: frontend
+  SERVICE: backend
 
 jobs:
   build-and-push:
