@@ -64,8 +64,8 @@ jobs:
       - name: Commit changes to GitHub
         run: |
           git pull
-          git config --global user.email "GitHubActions@SealedSecretWorkflow.com"
-          git config --global user.name "GitHub Actions - Sealed Secret Workflow"
+          git config --global user.email "GitHubActions@DeployArgoCDWorkflow.com"
+          git config --global user.name "GitHub Actions - Deploy ArgoCD Workflow"
           git add helm-charts/my-app/frontend/values.yaml
           git commit -m "Frontend hosts URLs updated by GitHub Actions"
           git push
