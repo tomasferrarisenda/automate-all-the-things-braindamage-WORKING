@@ -77,7 +77,7 @@ jobs:
 
       - name: Update tag in values-dev.yaml
         run: |
-          sed 's/tag:.*/tag: ${{github.run_number}}/g' helm-charts/infra/backstage/values-custom.yaml > values-custom.temp
+          sed 's/tag:.*/tag: "${{github.run_number}}" # This value was modified by the backstage build and push pipeline/g' helm-charts/infra/backstage/values-custom.yaml > values-custom.temp
           mv values-custom.temp helm-charts/infra/backstage/values-custom.yaml
 
       - name: Commit changes to GitHub
