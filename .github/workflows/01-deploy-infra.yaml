@@ -1,6 +1,5 @@
 name: 01-Deploy AWS infrastructure
 
-
 on:
   workflow_dispatch:
 
@@ -19,37 +18,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # - name: Setup Terraform
-      #     uses: hashicorp/setup-terraform@v1
-      #     with:
-      #         terraform_version: 1.4.6
-
       - name: Install terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.4.6"
 
-      # - name: Terraform Init Backend
-      #     run: |
-      #         cd terraform/backend
-      #         terraform init
-
       - name: Terraform init Backend
         run: terraform init
         working-directory: terraform/backend
-
-      # - name: Terraform plan
-      #   id: plan
-      #   run: terraform plan -no-color
-      #   working-directory: terraform/backend
-      # #   continue-on-error: true
-      # #   env:
-      # #     ARM_CLIENT_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      # #     ARM_CLIENT_SECRET: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      # - run: echo ${{ steps.plan.outputs.stdout }}
-      # - run: echo ${{ steps.plan.outputs.stderr }}
-      # - run: echo ${{ steps.plan.outputs.exitcode }}
 
       - name: Terraform apply backend
       #   id: apply-backend
@@ -60,43 +36,20 @@ jobs:
       #     ARM_CLIENT_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       #     ARM_CLIENT_SECRET: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      # - name: Echo apply-backend outputs
-      #   run: |
-      #     echo "${{ steps.apply-backend.outputs.stdout }}"
-      #     echo "${{ steps.apply-backend.outputs.stderr }}"
-      #     echo "${{ steps.apply-backend.outputs.exitcode }}"
-
-      # - name: Terraform Apply Backend
-      #     run: |
-      #         cd terraform/backend
-      #         terraform apply -auto-approve
-
       - name: Move terraform state to /terraform/aws/ directory
         if: ${{ success() }}
         run: cp terraform/backend/terraform.tfstate terraform/aws
-
-      # - name: Terraform Init Infra
-      #     run: |
-      #         cd terraform/aws
-      #         terraform init -force-copy
 
       - name: Terraform init actual infrastructure
         if: ${{ always() }}
         run: terraform init -force-copy
         working-directory: terraform/aws
 
-
-      # - name: Terraform Apply Infra
-      #     run: |
-      #         cd terraform/aws
-      #         terraform apply -auto-approve
-
       - name: Terraform apply actual infrastructure
       #   id: apply-actual-infrastructure
         run: terraform apply -auto-approve
         working-directory: terraform/aws
         if: ${{ always() }}
-
 
       # The terraform apply takes a long time so we run a git pull in case there have been any changes on the repo
       - name: Update repo
@@ -126,7 +79,6 @@ jobs:
           git add helm-charts/my-app/backend/environments/
           git commit -m "ElastiCache endpoints updated in environments values.yaml files by GitHub Actions"
           git push
-
 
       - name: Save SSH command
         if: ${{ always() }}
