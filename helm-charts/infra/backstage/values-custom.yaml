@@ -108,7 +108,7 @@ backstage:
               frequency: { minutes: 1 }
               timeout: { minutes: 3 }
 
-github_token: "" # This is used by the Sealed Secret manifest inside custom-templates
+github_token: AgBYuPLnZfaRDIdlyen6wKP5Rd9yhJWdTSeu3z0e2jDsp1SVfgjaHK/pmDzkkD40IrrvWNNIcHx85mBGs94oaw9fBau+yX2SNlcpAXvm2TR7gp3NGJ/gta3ZEswBL4bhxCFRfmzsFteMYKvUTOr1rQ4OnLkUbfnF5ayzaQV6c2zWGCtDwPXj5H6XeSPxppvVxDWsB6SZStsietxbYv4El6LCktX8ajgA6ZoU0tjTZgBXQZiZ//lli7t5F2lab13rckK+wK2sQD81wMTcPJZ6JNx6pnD5mVVDZWKBHoo2fftzPU+nyg/jKUbFOcwLyDR4tBiWWJsFCHKiwnsrHWpu9jfp1qmjcQtX8LlvRbymn9H3HpgAUe0+I3cf8wQD6V/9NFFrkrjkCaWBZrb3Tz/078XMtsUfOzTjiH51ZGtJDeHa0aLc6LT+VfGsl0SugWaX4Xq1ZyjzgriU962vD8DR+2Zm9GXdosJ7W/AzGHS5P5OCVldknRKHBaBdUt7RoDb5vcNxxydF+sPT6KWJfdiSZUxsgom3x4aJlXyIHxT4DVMqku4mHFFmkfZaEMAtLfNzuyCodeX7xpfmZifK3TMW3ZkgI/V2AyxOpbHvi0Poybb95LR5VM1oARu+Rxyyl3RTTxaqL5Fmgg+IIoofe35XarSvtzgGfw9LBqkiiBYzep8kaFvJV4ItGM5CN2likLwHCmQ592iWbwbmx1T43R5/c1J5KOq6Tjo8NfPTOx0kirYFWJAQCo8TdCjVGKVSAW7bAT/zuCBI/6I9sQYLFH4= # This value was modified by the sealed-secrets pipeline
 
 ingress:
   enabled: true
