@@ -4,7 +4,7 @@ backstage:
   image:
     registry: ""
     repository: tferrari92/backstage
-    tag: 6
+    tag: "7" # This value was modified by the backstage build and push pipeline
 
   extraEnvVars:
     - name: GITHUB_TOKEN
