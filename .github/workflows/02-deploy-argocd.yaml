@@ -45,8 +45,14 @@ jobs:
           kubectl create -n argocd -f argo-cd/self-manage/argocd-apps-application.yaml  
 
           # Quick access to ArgoCD UI.
-          kubectl get ingress -n argocd
-          kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+          until kubectl -n argocd get secret argocd-initial-admin-secret &> /dev/null; do
+            echo "Waiting for secret 'argocd-initial-admin-secret' to be available..."
+            sleep 3
+          done
+          
+          echo "URL: http://$(kubectl get ingress -n argocd -o jsonpath='{.items[*].status.loadBalancer.ingress[0].hostname}')"          
+          echo "Username: admin"
+          echo "Password: $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)"
 
       - name: Get Host Endpoint
         run : |
