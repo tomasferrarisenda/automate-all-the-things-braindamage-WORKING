@@ -97,7 +97,6 @@ backstage:
               frequency: { minutes: 1 }
               timeout: { minutes: 3 }
 
-
           # Users
           usersProvider:
             organization: 'tomasferrarisenda' # This value was modified by the initial-setup script
