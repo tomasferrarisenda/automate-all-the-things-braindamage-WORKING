@@ -112,7 +112,6 @@ github_token: AgAURkEbi96fisKqBVHwYOQFioNnAdTDWu76HUviuqAKeu1zKfSR3c33ynki011PI5
 
 ingress:
   enabled: true
-  className: "alb" # FUNCIONA????
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
