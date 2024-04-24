@@ -9,6 +9,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   APP_NAME: anna
 
+
 jobs:
   deploy-argocd:
     runs-on: ubuntu-latest
@@ -59,7 +60,7 @@ jobs:
           echo "###############################################"          
           echo "###############################################"          
           echo "###############################################"   
-          
+
       - name: Get Host Endpoint
         run : |
           while [[ $(kubectl get -n service-mesh service istio-gateway -o 'jsonpath={.status.loadBalancer.ingress[0].hostname}') == '' ]]; do
