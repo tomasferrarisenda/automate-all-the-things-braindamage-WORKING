@@ -50,10 +50,16 @@ jobs:
             sleep 3
           done
           
+          echo "###############################################"          
+          echo "###############################################"          
+          echo "###############################################"          
           echo "URL: http://$(kubectl get ingress -n argocd -o jsonpath='{.items[*].status.loadBalancer.ingress[0].hostname}')"          
           echo "Username: admin"
           echo "Password: $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)"
-
+          echo "###############################################"          
+          echo "###############################################"          
+          echo "###############################################"   
+          
       - name: Get Host Endpoint
         run : |
           while [[ $(kubectl get -n service-mesh service istio-gateway -o 'jsonpath={.status.loadBalancer.ingress[0].hostname}') == '' ]]; do
