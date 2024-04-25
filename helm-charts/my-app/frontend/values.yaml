@@ -7,9 +7,13 @@ host: a8c879ce30b0f48cfb11c8439dad8317-1251004023.us-east-1.elb.amazonaws.com # 
 port: 80
 
 deployment:
-  labels: {    
+  labels:
+    app: my-app-frontend
+    service: frontend
+    system: my-app
+    backstage.io/kubernetes-id: my-app-frontend
     istio: monitor
-  }
+  
   image:
     repository: tferrari92/anna-frontend # This value was modified by the harbor-setup pipeline
 
