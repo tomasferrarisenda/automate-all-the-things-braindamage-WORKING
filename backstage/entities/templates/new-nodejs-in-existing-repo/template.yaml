@@ -40,6 +40,16 @@ spec:
           ui:options:
             allowedKinds:
               - Group
+        # tags:
+        #   type: array
+        #   title: Tags
+        #   description: Tags to categorize the service
+        #   items:
+        #     type: string
+        # targetPath:
+        #   title: Target Path in repo
+        #   type: string
+        #   description: Name of the directory to create in the repository. Don't include the root slash.
 
     - title: Choose a location
       required:
@@ -65,13 +75,17 @@ spec:
           service: ${{ parameters.service }}
           description: ${{ parameters.description }}
           owner: ${{ parameters.owner }}
+          # tags: ['nodejs', 'example-tag2', 'example-tag3']
+          # tags:
+          #   - hard-coded-tag1
+          #   - hard-coded-tag2
 
-    - id: fetch-k8s-manifests
-      name: Fetch K8S Manifests
+    - id: fetch-helm-chart
+      name: Fetch Helm Chart
       action: fetch:template
       input:
-        url: ./k8s-manifests
-        targetPath: k8s-manifests/${{ parameters.system }}/${{ parameters.service }}
+        url: ./helm-chart
+        targetPath: helm-charts/systems/${{ parameters.system }}/${{ parameters.service }}
         values:
           system: ${{ parameters.system }}
           service: ${{ parameters.service }}
@@ -101,12 +115,16 @@ spec:
         targetPath: "" # Leave empty to use the root of the repo or specify if needed
         paths: 
           - application-code/${{ parameters.system }}/${{ parameters.service }}
-          - k8s-manifests/${{ parameters.system }}-${{ parameters.service }}
+          - helm-charts/systems/${{ parameters.system }}/${{parameters.service}}
           - .github/workflows
+
 
   output:
     links:
+      # - title: Repository
+      #   url: ${{ steps.publish.output.remoteUrl }}
       - url: ${{ steps.publish.output.remoteUrl }}
         title: "Go to PR"
-
-
+      # - title: Open in catalog
+      #   icon: catalog
+      #   entityRef: ${{ steps.register.output.entityRef }}
