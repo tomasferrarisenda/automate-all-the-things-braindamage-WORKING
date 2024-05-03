@@ -456,7 +456,6 @@ Here are the specific numbers:
 <br/>
 <br/>
 
-
 # ARGOCD DEPLOYMENT PIPELINE
 
 ## Description
