@@ -22,25 +22,21 @@
 
 # **BRAINDAMAGE EDITION**
 
-This Braindamage Edition builds upon the [Insane Edition](https://github.com/tferrari92/automate-all-the-things-insane).
+This Braindamage Edition builds upon the [Overload Edition](https://github.com/tferrari92/automate-all-the-things-overload).
 
 ### New features:
 
-- ArgoCD Sync Waves
-- Sealed Secrets
-- Backend code instrumented with OpenTelemetry
-- Traces collection and visualization Jaeger
-- Removed the use of Canary deployments in Dev environment
-
+- Backstage.io
 
 ### Versions in order of complexity:
 
 1. [Regular Edition](https://github.com/tferrari92/automate-all-the-things)
 2. [Hardcore Edition](https://github.com/tferrari92/automate-all-the-things-hardcore)
 3. [Insane Edition](https://github.com/tferrari92/automate-all-the-things-insane)
-4. [Braindamage Edition](https://github.com/tferrari92/automate-all-the-things-braindamage)
-5. [Transcendence Edition](https://github.com/tferrari92/automate-all-the-things-transcendence)
-6. [Nirvana Edition](https://github.com/tferrari92/automate-all-the-things-nirvana)
+4. [Overload Edition](https://github.com/tferrari92/automate-all-the-things-overload)
+5. [Braindamage Edition](https://github.com/tferrari92/automate-all-the-things-braindamage)
+6. [Transcendence Edition](https://github.com/tferrari92/automate-all-the-things-transcendence)
+7. [Nirvana Edition](https://github.com/tferrari92/automate-all-the-things-nirvana)
 
 ### Spin-offs:
 - [Backstage Minikube Lab](https://github.com/tferrari92/backstage-minikube-lab)
@@ -55,7 +51,7 @@ This Braindamage Edition builds upon the [Insane Edition](https://github.com/tfe
   - [Tools we'll be using](#tools-well-be-using)
   - [Disclaimer](#disclaimer)
 - [Local Setup](#local-setup)
-- [Azure DevOps Setup](#azure-devops-setup)
+<!-- - [Azure DevOps Setup](#azure-devops-setup)
   - [Create project](#create-project)
   - [Install required plugins](#install-required-plugins)
   - [Get your AWS keys](#get-your-aws-keys)
@@ -63,7 +59,7 @@ This Braindamage Edition builds upon the [Insane Edition](https://github.com/tfe
   - [Create DockerHub service connection](#create-dockerhub-service-connection)
   - [Create AWS-keys variable group](#create-aws-keys-variable-group)
   - [Create an Azure self-hosted agent](#optional-create-an-azure-self-hosted-agent)
-- [AWS Infrastructure Deployment Pipeline](#aws-infrastructure-deployment-pipeline)
+- [AWS Infrastructure Deployment Pipeline](#aws-infrastructure-deployment-pipeline) -->
   - [Description](#description)
   - [Instructions](#instructions)
 - [About ArgoCD Sync Waves](#about-argocd-sync-waves)
@@ -144,7 +140,7 @@ Our app is a very simple static website, but I'm not spoiling it for you. You'll
 - Infrastructure as Code -> Terraform
 - Containerization -> Docker
 - Container Orchestration -> Kubernetes
-- Continuous Integration -> Azure DevOps
+- Continuous Integration -> GitHub Actions
 - Continuous Deployment -> Helm & ArgoCD
 - Scripting -> Python
 - Monitoring -> Prometheus
@@ -156,6 +152,7 @@ Our app is a very simple static website, but I'm not spoiling it for you. You'll
 - Kubernetes Secrets Encryption -> Bitnami Sealed Secrets
 - Code Instrumentation -> OpenTelemetry
 - Tracing -> Jaeger
+- Internal Developer Platform -> Backstage.io
 
 <br/>
 
@@ -165,7 +162,7 @@ Our app is a very simple static website, but I'm not spoiling it for you. You'll
 
 ## Disclaimer
 
-This is not a free project, it will cost you between $1 US dollars and $10 depending on how long you run the resources for. That's assuming you run them for a few hours tops, not days. Always remember to run the [destroy-all-the-things pipeline](/azure-devops/05-destroy-all-the-things.yml) when you are done.
+This is not a free project, it will cost you between $1 US dollars and $10 depending on how long you run the resources for. That's assuming you run them for a few hours tops, not days. Always remember to run the [destroy-all-the-things pipeline](/.github/workflows/06-destroy-all-the-things.yaml) when you are done.
 
 Some things could have been further automated but I prioritized modularization and separation of concerns.<br>
 
@@ -215,7 +212,7 @@ git commit -m "customized repo"
 git push
 ```
 
-5. Awesome! You can now proceed with the Azure DevOps setup.
+5. Awesome! You can now proceed with the GitHub Actions setup.
 
 <br/>
 <br/>
@@ -223,7 +220,7 @@ git push
 <br/>
 <br/>
 
-# **AZURE DEVOPS SETUP**
+<!-- # **AZURE DEVOPS SETUP**
 
 Before creating our pipelines we need to get a few things set up:<br>
 
@@ -321,7 +318,7 @@ A hosted parallelism basically means that Azure will spin up a server in which t
 If you don't have a hosted parallelism, you will have to run the pipeline in a **self-hosted agent**.
 This means you'll install an Azure DevOps Agent on your local machine, which will receive and execute the pipeline jobs.
 
-To install a self-hosted agent on your machine, you can follow the official documentation [here](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/agents?view=azure-devops&tabs=browser#install).
+To install a self-hosted agent on your machine, you can follow the official documentation [here](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/agents?view=azure-devops&tabs=browser#install). -->
 
 <br/>
 <br/>
@@ -340,7 +337,7 @@ To install a self-hosted agent on your machine, you can follow the official docu
 
 Our first pipeline, the one that will provide us with all the necessary infrastructure.
 
-What does this pipeline do? If you take a look at the [00-deploy-infra.yml](azure-devops/00-deploy-infra.yml) file, you'll see that the first thing we do is use the Terraform plugin we previously installed to deploy a S3 Bucket and DynamoDB table. These two resources will allow us to store our terraform state remotely and give it locking functionality.<br/>
+What does this pipeline do? If you take a look at the [00-deploy-infra.yml](/.github/workflows/01-deploy-infra.yaml) file, you'll see that the first thing we do is use the Terraform plugin we previously installed to deploy a S3 Bucket and DynamoDB table. These two resources will allow us to store our terraform state remotely and give it locking functionality.<br/>
 
 Why do we need to store our tf state remotely and locking it? Well, this is probably not necessary for this exercise but it's a best practice when working on a team.<br>
 Storing it remotely means that everyone on the team can access and work with the same state file, and locking it means that only one person can access it at a time, this prevents state conflicts.
