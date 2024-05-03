@@ -1,4 +1,4 @@
-name: 01-Build & push Backstage image
+name: 00-Build & push Backstage image
 
 on:
   workflow_dispatch:
