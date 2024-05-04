@@ -51,6 +51,9 @@ This Braindamage Edition builds upon the [Overload Edition](https://github.com/t
   - [Tools we'll be using](#tools-well-be-using)
   - [Disclaimer](#disclaimer)
 - [Local Setup](#local-setup)
+- [GitHub Actions Setup](#github-actions-setup)
+  - [Get your AWS keys](#get-your-aws-keys)
+  - [Create secrets for GitHub Actions](#create-secrets-for-github-actions)
 <!-- - [Azure DevOps Setup](#azure-devops-setup)
   - [Create project](#create-project)
   - [Install required plugins](#install-required-plugins)
@@ -58,8 +61,8 @@ This Braindamage Edition builds upon the [Overload Edition](https://github.com/t
   - [Create AWS service connection](#create-aws-service-connection)
   - [Create DockerHub service connection](#create-dockerhub-service-connection)
   - [Create AWS-keys variable group](#create-aws-keys-variable-group)
-  - [Create an Azure self-hosted agent](#optional-create-an-azure-self-hosted-agent)
-- [AWS Infrastructure Deployment Pipeline](#aws-infrastructure-deployment-pipeline) -->
+  - [Create an Azure self-hosted agent](#optional-create-an-azure-self-hosted-agent) -->
+- [AWS Infrastructure Deployment Pipeline](#aws-infrastructure-deployment-pipeline)
   - [Description](#description)
   - [Instructions](#instructions)
 - [About ArgoCD Sync Waves](#about-argocd-sync-waves)
@@ -219,6 +222,43 @@ git push
 <p title="Evil Kermit" align="center"> <img width="650" src="https://i.imgur.com/pIGcI2d.jpg"> </p>
 <br/>
 <br/>
+
+
+# **GITHUB ACTIONS SETUP**
+
+Before running our pipelines we need to get a few things set up<br>
+
+## Get your AWS keys
+
+These will be required for our workflows to connect to your AWS account.
+
+1. Open the IAM console at https://console.aws.amazon.com/iam/.
+2. On the search bar look up "IAM".
+3. On the IAM dashboard, select "Users" on the left side menu. _If you are root user and haven't created any users, you'll find the "Create access key" option on IAM > My security credentials. You should know that **creating Access Keys for the root user is a bad security practice**. If you choose to proceed anyway, click on "Create access key" and skip to point 6_.
+4. Choose your IAM user name (not the check box).
+5. Open the Security credentials tab, and then choose "Create access key".
+6. To see the new access key, choose Show. Your credentials resemble the following:
+
+- Access key ID: AKIAIOSFODNN7EXAMPLE<br>
+- Secret access key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+
+7. Copy and save these somewhere safe.
+
+<br/>
+
+## Create secrets for GitHub Actions
+
+1. Go to the Settings tab of your GitHub repo.
+2. On the left-side menu click "Secrets and variables" and then on "Actions".
+3. Under "Repository secrets" click on "New repository secret".
+<p title="Guide" align="center"> <img width="700" src="https://i.imgur.com/656voMj.png"> </p>
+
+4. Under "Name" write "AWS_ACCESS_KEY_ID" and under "Secret" paste the corresponding value. 
+5. Click "Add secret" to save.
+6. Repeat the process for:
+- AWS_SECRET_ACCESS_KEY
+- DOCKER_USERNAME
+- DOCKER_PASSWORD
 
 <!-- # **AZURE DEVOPS SETUP**
 
