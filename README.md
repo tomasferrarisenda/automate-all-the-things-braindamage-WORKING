@@ -276,14 +276,12 @@ Before deploying our infra, let's explore Backstage locally.
 Backstage is a framework for creating developer portals. This developer portal should act as a centralized hub for your organization, providing access to documentation, infrastructure, tooling, and code standards. It gives developers everything they need to create and manage their projects in a consistent and standardized manner. If you are new to Backstage, I invite you to read [this brilliant series of articles](https://www.kosli.com/blog/evaluating-backstage-1-why-backstage/) by Alexandre Couedelo.
 
 </br>
-</br>
 
 ## Prerequisites
 - nodejs installed
 - nvm installed
 - yarn installed
 
-</br>
 </br>
 
 ## Initial setup
@@ -315,7 +313,6 @@ Choose a name and a value for expiration. Under scopes select "repo" and "workfl
 Click Generate token. Store the token somewhere safe.
 
 </br>
-</br>
 
 ## Run Backstage locally
 Everything's ready to start playing with Backstage.
@@ -339,13 +336,12 @@ yarn dev
 
 Open your browser and go to localhost:3000. You should see the Backstage web UI.
 
-Every time you make changes to the Backstage code, it's recommended you test it by running it locally with "yarn dev" like you just did. This will be much faster that testing every change in Minikube.
+Every time you make changes to the Backstage code, it's recommended you test it by running it locally with "yarn dev" like you just did. This will be much faster that testing every change in EKS.
 
-</br>
 </br>
 
 ## Customising Backstage
-Before deploying to Minikube, lets go over some things you'll find in this Backstage deployment.
+Before deploying our infra, lets go over some things you'll find in this Backstage deployment.
 
 Backstage is designed to be flexible and allow every organization to adapt it to their own needs. It is not a black-box application where you install plugins; rather, you maintain your own source code and can modify it as needed.
 
@@ -359,7 +355,6 @@ I've already added some custom stuff to the default Backstage installation that 
 The [Kubernetes plugin](https://backstage.io/docs/features/kubernetes/) in Backstage is a tool that's designed around the needs of service owners, not cluster admins. Now developers can easily check the health of their services no matter how or where those services are deployed — whether it's on a local host for testing or in production on dozens of clusters around the world.
 
 It will elevate the visibility of errors where identified, and provide drill down about the deployments, pods, and other objects for a service.
-
 </br>
 
 #### GitHub Discovery plugin 
@@ -370,7 +365,6 @@ I've installed it without events support. Updates to the catalog will rely on pe
 You can check the automatic discovery configuration under catalog.providers.github in the [app-config.yaml](/backstage/my-backstage/app-config.yaml) and [app-config.production.yaml](/backstage/my-backstage/app-config.production.yaml) files.
 
 **IMPORTANT**: We use [app-config.yaml](/backstage/my-backstage/app-config.yaml) for local testing (when running `yarn dev`) and [app-config.production.yaml](/backstage/my-backstage/app-config.production.yaml) when deploying to Minikube.
-
 </br>
 
 ### Templates I've created
@@ -379,21 +373,18 @@ You can check the automatic discovery configuration under catalog.providers.gith
 Creates a new Backstage System with the provided information. A System in Backstage is a collection of entities (services, resources, APIs, etc.) that cooperate to perform a some function. For example, we will have a System called "my-app" that includes the my-app-frontend service, the my-app-backend service, the my-app-redis database and the my-app-backend API.
 
 It generates a Pull Request which includes a new System manifest. When merged, the System catalog entity will be automatically added to the Backstage catalog by the GitHub Discovery plugin.
-
 </br>
 
 #### New Backstage Group
 Creates a new Backstage group with the provided information. 
 
 It generates a Pull Request which includes a new Group manifest. When merged, the Group catalog entity will be automatically added to the Backstage catalog by the GitHub Discovery plugin.
-
 </br>
 
 #### New Backstage User
 Creates a new Backstage user with the provided information. 
 
 It generates a Pull Request which includes a new User manifest. When merged, the User catalog entity will be automatically added to the Backstage catalog by the GitHub Discovery plugin.
-
 </br>
 
 #### New Node.js in existing repo
@@ -403,7 +394,6 @@ Creates all the boilerplate files and directories in an existing repo for deploy
 3. The build and push GitHub workflow manifest, which will be saved [the .github/workflows directory](/.github/workflows/) (working with GitHub Workflows is out of the scope of this lab).
 
 It generates a Pull Request which includes all these files al directories.
-
 </br>
 
 #### New NGINX in existing repo
@@ -413,7 +403,6 @@ Creates all the boilerplate files and directories in an existing repo for deploy
 3. The build and push GitHub workflow manifest, which will be saved [the .github/workflows directory](/.github/workflows/) (working with GitHub Workflows is out of the scope of this lab).
 
 It generates a Pull Request which includes all these files al directories.
-
 </br>
 
 ### My Arbitrary Rules
@@ -423,7 +412,6 @@ The app-config is the file that defines the Backstage configuration. You will fi
 1. [The app-config.yaml file](/backstage/my-backstage/app-config.yaml): This is the config that will be used for development and testing purposes when running locally with `yarn dev` command.
 2. [The app-config.production.yaml file](/backstage/my-backstage/app-config.yaml): This is the config that will be used for building the Docker image that will be deployed in Minikube. You will notice that it's missing the catalog configuration. That's because the catalog configuration will be passed in through a ConfigMap.
 3. [The helm chart values-custom.yaml file](/backstage/helm-chart/values-custom.yaml): Since the catalog configuration is something that might need to be modified more often, I decided it should be specified in a ConfigMap and not hard coded into the Docker image. You can find the catalog configuration in the values-custom.yaml file of the Backstage helm chart. Helm will create a ConfigMap with these values and pass it in to the Backstage pod at the time of creation.
-
 </br>
 
 #### Users and groups hierarchy
