@@ -263,6 +263,9 @@ These will be required for our workflows to connect to your AWS account.
 <br/>
 
 # BACKSTAGE.IO
+
+Before deploying our infra, let's explore Backstage locally.
+
 Backstage is a framework for creating developer portals. This developer portal should act as a centralized hub for your organization, providing access to documentation, infrastructure, tooling, and code standards. It gives developers everything they need to create and manage their projects in a consistent and standardized manner. If you are new to Backstage, I invite you to read [this brilliant series of articles](https://www.kosli.com/blog/evaluating-backstage-1-why-backstage/) by Alexandre Couedelo.
 
 </br>
