@@ -88,8 +88,8 @@ aws_region = input()
 print_gradually("Good choice! We're almost done. What's your DockerHub username?: ")
 dockerhub_username = input()
 
-print_gradually("Perfect! Last thing... You'll recieve just one pipeline notification through email. Please provide me with the email you used for your Azure DevOps account: ")
-user_email = input()
+# print_gradually("Perfect! Last thing... You'll recieve just one pipeline notification through email. Please provide me with the email you used for your Azure DevOps account: ")
+# user_email = input()
 
 print_gradually("Give me a sec... ")
 
@@ -122,6 +122,7 @@ def search_and_replace(directory, replacements):
             if file_name in ['application-dev.yaml',
                              'application-stage.yaml',
                              'application-prod.yaml',
+                             'backstage-application.yaml',
                              'flagger-application.yaml',
                              'flagger-loadtester-application.yaml',
                              'grafana-application.yaml',
