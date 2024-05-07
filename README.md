@@ -367,6 +367,7 @@ I've installed it without events support. Updates to the catalog will rely on pe
 You can check the automatic discovery configuration under catalog.providers.github in the [app-config.yaml](/backstage/my-backstage/app-config.yaml) and [app-config.production.yaml](/backstage/my-backstage/app-config.production.yaml) files.
 
 **IMPORTANT**: We use [app-config.yaml](/backstage/my-backstage/app-config.yaml) for local testing (when running `yarn dev`) and [app-config.production.yaml](/backstage/my-backstage/app-config.production.yaml) when deploying to Minikube.
+
 </br>
 
 ### Templates I've created
@@ -405,6 +406,7 @@ Creates all the boilerplate files and directories in an existing repo for deploy
 3. The build and push GitHub workflow manifest, which will be saved [the .github/workflows directory](/.github/workflows/) (working with GitHub Workflows is out of the scope of this lab).
 
 It generates a Pull Request which includes all these files al directories.
+
 </br>
 
 ### My Arbitrary Rules
