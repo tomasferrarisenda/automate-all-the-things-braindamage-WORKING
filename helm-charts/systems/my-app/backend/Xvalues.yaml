@@ -1,0 +1,17 @@
+appName: anna # This value was modified by the initial-setup python script
+
+service: backend
+
+port: 3000
+
+deployment:
+  image:
+    repository: tferrari92/anna-backend # This value was modified by the harbor-setup pipeline
+  labels:    
+    app: my-app-backend
+    service: backend
+    system: my-app
+    backstage.io/kubernetes-id: my-app-backend
+    istio: monitor # This label is used by the PodMonitor
+
+  

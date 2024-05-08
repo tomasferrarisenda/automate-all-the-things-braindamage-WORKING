@@ -6,6 +6,8 @@ deployment:
   image:
     tag: 2
   replicas: 1
+  labels:
+    full-name: anna-backend-stage # This value was modified by the initial-setup python script
 
 secret:
   redis_pass: AgAVZ3geFVxmIXr1Co6gK8ko+gLhSErflWOLJDj7xD8eCJcWmW9V3D/yjEQMc2Ar9H+pjiKkGccDpbhdTz9gWZthf7hhtRcR51+NgpLwWZnATUlk2DILTc/Wfh640uPXXcwm2Mn5OQIxUrS3UFaC1TH/CBuvfaHDwqpJR1knZOyhatZXX1OaWJDcvl5uapjrFAkC2GIPnq/pMEMfCJ80UqqkyXylyxPtXcou675g9S+6GAm6gPv+llIeYbySbV/9E7wVajrEVLvQ1IImyDLS1H4iXHypySZmNx9Gt9cyMUsyX7j3VcVhq4Ciemjn79kbJw6b5sJ6Dx0Felljm+vh1A2CcRDEgAayTEE8Qnapd07XoGighSVkZjf9VgrMFMG1Qd+pzehbh34gAJHbCmnSe+ns7/0kBb3x5GKnGI+6ge9yuug752Ma57WHctYiLzXrFJrqTzLHY/jD4wA0sxaAgZ+pcDDXzMmuee3V64JjdW/mhf4qIDjW/0w5KmhnsxKz9DR6c3xI+xVmvDLqkA7PirfVfESaheQHQjDjkx0Me2DCL2HSjq0mgtZIGtO76jW2g+i9lxk8pHpsDI3oNgzEQUGHDVadgrCko5b+X5HEMYBTfTMB+UjWjGj0CGqTn+iNv4mOETfWGpWhS228T8JSL6uoJQCVf7XNEx0pitlBJNhvc068DijjhcteXeztjebY8g93T7P1Ow5QT3eIu9SM0psnqwbMp0njrEktq7yNhw== # This value was modified by the sealed-secrets pipeline
