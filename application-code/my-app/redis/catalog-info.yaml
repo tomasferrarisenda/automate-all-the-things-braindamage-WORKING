@@ -1,13 +1,13 @@
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
-  name: my-app-redis
-  description: My-App Redis Databse
+  name: anna-redis
+  description: Anna Redis Databse
   annotations:
     backstage.io/techdocs-ref: dir:.
     # This annotation doesn't work in objects of kind Resource. It only works in objects of kind Component.
     # Our Redis deployment is registered as a Resource in Backstege catalog, so we can't use this annotation unless we change the kind of the object to Component.
-    # backstage.io/kubernetes-id: my-app-redis
+    # backstage.io/kubernetes-id: anna-redis
   tags:
     - redis 
   links:
@@ -28,5 +28,5 @@ metadata:
 spec:
   type: database
   lifecycle: production
-  owner: my-app-redis-subteam
-  system: my-app
+  owner: anna-redis-subteam
+  system: anna
