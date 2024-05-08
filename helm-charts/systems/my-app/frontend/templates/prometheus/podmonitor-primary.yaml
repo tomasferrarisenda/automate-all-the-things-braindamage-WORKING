@@ -2,18 +2,18 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: {{ .Values.appName }}-{{ .Values.service }}-{{ .Values.environment }}-primary-pods
+  name: {{ .Values.system }}-{{ .Values.service }}-{{ .Values.environment }}-primary-pods
   namespace: observability
   labels:
     release: kube-prometheus-stack # Required to be scraped by Prometheus server
 spec:
   namespaceSelector:
     matchNames:
-      - {{ .Values.appName }}-{{ .Values.environment }}
+      - {{ .Values.system }}-{{ .Values.environment }}
   selector:
     matchLabels:
       # This will make it monitor the primary (main) deployment      
-      app: {{ .Values.appName }}-{{ .Values.service }}-{{ .Values.environment }}-primary
+      app: {{ .Values.system }}-{{ .Values.service }}-{{ .Values.environment }}-primary
       istio: monitor
   podMetricsEndpoints:
     - port: http-envoy-prom
