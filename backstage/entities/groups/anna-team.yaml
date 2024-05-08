@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: anna-team
+  title: Anna Team
+  description: Responsible for maintaining and developing the Anna system
+  tags:
+    - engineering
+    - infrastructure
+spec:
+  type: team
+  children: []
+  # parent: 
+  # children: 
+  #   - anna-redis-subteam
+  #   - anna-backend-subteam
+  #   - anna-frontend-subteam
+  # members:
+  profile:
+    email: anna-team@example.com
+    # slack:
