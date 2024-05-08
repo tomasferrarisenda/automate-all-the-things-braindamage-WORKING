@@ -612,7 +612,7 @@ Same will be done for the GitHub token secret that Backstage will use.
 
 Our app is made of two microservices (backend and frontend) and a database. Let's start with the backend.
 
-The [/my-app/backend directory](my-app/backend) on the repo is meant to represent the backend microservice application code repository. Here you'll find the code files and the corresponding Dockerfile for the backend service.
+The [application-code/my-app/backend directory](/application-code/my-app/backend) on the repo is meant to represent the backend microservice application code repository. Here you'll find the code files and the corresponding Dockerfile for the backend service.
 
 There's four stages on this pipeline:
 
@@ -629,7 +629,7 @@ We'll repeat the same process for Prod, but since Prod should be a more delicate
 
 That's it! Your app was deployed to all environments! Good job buddy!
 
-This pipeline is automatically triggered everytime there are any changes commited inside the "backend service application code repository" (meaning the [/my-app/backend directory](my-app/backend)). In this manner, if the backend developers commit any changes to the backend service, they will be automatically built and deployed to the cluster. That's some delicious CI/CD for you baby.
+This pipeline is automatically triggered everytime there are any changes commited inside the "backend service application code repository" (meaning the [pplication-code/my-app/backend directory](/application-code/my-app/backend)). In this manner, if the backend developers commit any changes to the backend service, they will be automatically built and deployed to the cluster. That's some delicious CI/CD for you baby.
 
 Now, if the infrastrucure team needs to make changes to the cluster resources, they would work on the "K8S infrastructure repository" (meaning the [helm-charts/systems/my-app directory](/helm-charts/systems/my-app)). Let's say they need to increase the number of pod replicas for the backend service in the prod environment, then they'd change the value of deployment.replicas in the [helm-charts/systems/my-app/backend/environments/values-prod.yaml file](/helm-charts/systems/my-app/backend/environments/values-prod.yaml), commit the change and wait for ArgoCD to apply the changes on the cluster. There's some tasty Gitops for you too.
 
@@ -651,7 +651,7 @@ Now, if the infrastrucure team needs to make changes to the cluster resources, t
 
 ## Description
 
-The [/my-app/frontend directory](my-app) on the repo is meant to represent the frontend microservice code repository. Here you'll find the code files and the corresponding Dockerfile for the frontend service.
+The [application-code/my-app/frontend directory](/application-code/my-app/frontend/) on the repo is meant to represent the frontend microservice code repository. Here you'll find the code files and the corresponding Dockerfile for the frontend service.
 
 Just as in the backend pipeline, there's four stages on this pipeline:
 
@@ -662,7 +662,7 @@ Just as in the backend pipeline, there's four stages on this pipeline:
 
 That's it! Your entire app was deployed to all environments! Good job buddy!
 
-Just as with the backend, this pipeline is automatically triggered everytime there are any changes commited inside the "frontend service application code repository" (meaning the [/my-app/frontend directory](my-app/frontend)). In this manner, if the frontend developers commit any changes to the frontend service, they will be automatically built and deployed to the cluster.
+Just as with the backend, this pipeline is automatically triggered everytime there are any changes commited inside the "frontend service application code repository" (meaning the [application-code/my-app/frontend directory](/application-code/my-app/frontend/)). In this manner, if the frontend developers commit any changes to the frontend service, they will be automatically built and deployed to the cluster.
 
 For the infrastructure, same as before. If the infrastrucure team needs to, for example, change the number of pod replicas for the frontend service in the dev environment, then they'd change the value of deployment.replicas in the [helm-charts/systems/my-app/frontend/environments/values-dev.yaml file](/helm-charts/systems/my-app/frontend/environments/values-dev.yaml), commit the change and wait for ArgoCD to apply the changes on the cluster.
 
