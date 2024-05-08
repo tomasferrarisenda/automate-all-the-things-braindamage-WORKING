@@ -1,4 +1,4 @@
-site_name: My App Backend Documentation
+site_name: anna-backend Documentation
 nav:
   - Home: index.md
   - API: api.md

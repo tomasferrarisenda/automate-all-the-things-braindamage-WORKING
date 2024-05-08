@@ -1,4 +1,4 @@
-site_name: my-app-frontend Documentation
+site_name: anna-frontend Documentation
 nav:
   - Home: index.md
   - Deployment: deployment.md

@@ -1,4 +1,4 @@
-site_name: My App Redis Documentation
+site_name: anna-redis Documentation
 nav:
   - Home: index.md
   - Deployment: deployment.md

@@ -1,15 +1,15 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: my-app-backend-api
-  description: The My-App Backend Service API
+  name: anna-backend-api
+  description: The Anna Backend Service API
   tags:
     - restful
 spec:
   type: openapi
   lifecycle: production
-  owner: my-app-backend-subteam
-  system: my-app
+  owner: anna-backend-subteam
+  system: anna
   definition: |
     openapi: 3.0.0
     info:
