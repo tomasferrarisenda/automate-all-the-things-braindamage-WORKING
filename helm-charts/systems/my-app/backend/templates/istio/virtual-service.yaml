@@ -2,14 +2,14 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: {{ .Values.appName }}-{{ .Values.service }}-{{ .Values.environment }}-virtual-service
+  name: {{ .Values.system }}-{{ .Values.service }}-{{ .Values.environment }}-virtual-service
 spec:
   gateways:
     - mesh
   hosts:
-    - {{ .Values.appName }}-{{ .Values.service }}-{{ .Values.environment }}-service.{{ .Values.appName }}-{{ .Values.environment }}.svc.cluster.local
+    - {{ .Values.system }}-{{ .Values.service }}-{{ .Values.environment }}-service.{{ .Values.system }}-{{ .Values.environment }}.svc.cluster.local
   http:
     - route:
         - destination:
-            host: {{ .Values.appName }}-{{ .Values.service }}-{{ .Values.environment }}-service.{{ .Values.appName }}-{{ .Values.environment }}.svc.cluster.local
+            host: {{ .Values.system }}-{{ .Values.service }}-{{ .Values.environment }}-service.{{ .Values.system }}-{{ .Values.environment }}.svc.cluster.local
 {{- end }}

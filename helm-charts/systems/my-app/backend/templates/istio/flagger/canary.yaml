@@ -2,7 +2,7 @@
 apiVersion: flagger.app/v1beta1
 kind: Canary
 metadata:
-  name: {{ .Values.appName }}-{{ .Values.service }}-{{ .Values.environment }}-canary
+  name: {{ .Values.system }}-{{ .Values.service }}-{{ .Values.environment }}-canary
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
@@ -10,7 +10,7 @@ spec:
   targetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .Values.appName }}-{{ .Values.service }}-{{ .Values.environment }}-deployment
+    name: {{ .Values.system }}-{{ .Values.service }}-{{ .Values.environment }}-deployment
   # The maximum time in seconds for the canary deployment to make progress before it is rollback (default 600s)
   progressDeadlineSeconds: 60
   service:
@@ -20,7 +20,7 @@ spec:
     # targetPort: 3000
     # Istio gateways (optional)
     # gateways:
-    # - {{ .Values.appName }}-{{ .Values.service }}-{{ .Values.environment }}-gateway # Name of the gateway. Also .<namespace> if gateway is in a separate namespace
+    # - {{ .Values.system }}-{{ .Values.service }}-{{ .Values.environment }}-gateway # Name of the gateway. Also .<namespace> if gateway is in a separate namespace
     # Istio virtual service host names (optional)
     # hosts:
     # - "*"
@@ -75,7 +75,7 @@ spec:
         url: http://flagger-loadtester.service-mesh/
         timeout: 5s
         metadata:
-          cmd: "hey -z 10m -q 10 -c 2 http://{{ .Values.appName }}-{{ .Values.service }}-{{ .Values.environment }}-deployment-canary.{{ .Values.appName }}-{{ .Values.environment }}:{{ .Values.port }}"
+          cmd: "hey -z 10m -q 10 -c 2 http://{{ .Values.system }}-{{ .Values.service }}-{{ .Values.environment }}-deployment-canary.{{ .Values.system }}-{{ .Values.environment }}:{{ .Values.port }}"
     #   - name: acceptance-test
     #     type: pre-rollout
     #     url: http://flagger-loadtester.ecommerce/
