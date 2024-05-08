@@ -4,6 +4,8 @@ deployment:
   image:
     tag: 7
   replicas: 1
+  labels:
+    full-name: anna-frontend-prod # This value was modified by the initial-setup python script
 
 # configmap: 
 #   nginxConf: |-

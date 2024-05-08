@@ -8,10 +8,10 @@ port: 80
 
 deployment:
   labels:
-    app: my-app-frontend
+    # app: anna-frontend
     service: frontend
-    system: my-app
-    backstage.io/kubernetes-id: my-app-frontend
+    system: anna
+    backstage.io/kubernetes-id: anna-frontend
     istio: monitor
   
   image:

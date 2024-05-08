@@ -1,11 +1,11 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: my-app-frontend
-  description: My-App Frontend service
+  name: anna-frontend
+  description: Anna Frontend service
   annotations:
     backstage.io/techdocs-ref: dir:.
-    backstage.io/kubernetes-id: my-app-frontend
+    backstage.io/kubernetes-id: anna-frontend
   tags:
     - nginx
   links:
@@ -26,10 +26,10 @@ metadata:
 spec:
   type: service
   lifecycle: production
-  owner: group:default/my-app-frontend-subteam
-  system: my-app
+  owner: group:default/anna-frontend-subteam
+  system: anna
   dependsOn:
-    - component:default/my-app-backend
+    - component:default/anna-backend
   consumesApis:
-    - my-app-backend-api
+    - anna-backend-api
 
