@@ -1,4 +1,4 @@
-system: anna # This value was modified by the initial-setup python script
+appName: anna # This value was modified by the initial-setup python script
 
 service: frontend
 
