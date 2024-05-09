@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'application-code/${{ env.SYSTEM }}/frontend/**'
+      - 'application-code/meme-web/frontend/**'
 
 env:
   SYSTEM: meme-web # This value was modified by the initial-setup python script

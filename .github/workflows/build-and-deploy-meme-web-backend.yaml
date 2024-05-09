@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'application-code/${{ env.SYSTEM }}/backend/**'
+      - 'application-code/meme-web/backend/**'
 
 env:
   SYSTEM: meme-web
