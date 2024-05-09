@@ -1,4 +1,4 @@
-name: 04-Build & deploy ${{ env.SYSTEM }}-backend image
+name: Build & deploy meme-web-backend image
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
       - 'application-code/${{ env.SYSTEM }}/backend/**'
 
 env:
-  SYSTEM: meme-web # This value was modified by the initial-setup python script
+  SYSTEM: meme-web
   SERVICE: backend
 
 jobs:
