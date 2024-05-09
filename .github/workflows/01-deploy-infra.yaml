@@ -2,7 +2,7 @@ name: 01-Deploy AWS infrastructure
 
 on:
   workflow_dispatch:
-  
+
 
 env:
   AWS_REGION: us-east-1
@@ -75,6 +75,7 @@ jobs:
 
       - name: Commit changes to GitHub
         if: ${{ always() }}
+        continue-on-error: true
         run: |
           git config --global user.email "GitHubActions@DeployInfraWorkflow.com"
           git config --global user.name "GitHub Actions - Deploy Infra Workflow"
