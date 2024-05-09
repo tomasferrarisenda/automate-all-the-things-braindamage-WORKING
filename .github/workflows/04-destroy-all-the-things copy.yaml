@@ -1,4 +1,4 @@
-name: 06-Destroy infrastructure
+name: 04-Destroy infrastructure
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ env:
   AWS_REGION: us-east-1
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  APP_NAME: anna
+  SYSTEM: meme-web
 
 jobs:
   destroy-k8s-resources:
@@ -21,7 +21,7 @@ jobs:
       #     helm: '3.11.2'
 
       - name: Configure kubeconfig
-        run: aws eks --region $AWS_REGION update-kubeconfig --name $APP_NAME-cluster
+        run: aws eks --region $AWS_REGION update-kubeconfig --name $SYSTEM-cluster
 
       # Before deleting all Ingresses we eliminate ArgoCD because if we don't, it will re-deploy the Ingresses, automatically creating untracked AWS Application Load Balancers, which would mess with the terraform destroy  
       # We also need to remove the finalizers from the Kiali CR for deletion to be successful, it's a known issue (https://kiali.io/docs/installation/installation-guide/install-with-helm/#known-problem-uninstall-hangs-unable-to-delete-the-kiali-cr)
