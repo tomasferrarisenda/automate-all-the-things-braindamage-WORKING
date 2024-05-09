@@ -2,7 +2,7 @@ system: anna # This value was modified by the initial-setup python script
 
 service: frontend
 
-host: a5d710c845bd04d8490fd00eda2e5e07-1523546108.us-east-1.elb.amazonaws.com # This value was modified by the deploy-argocd pipeline
+host:  # This value was modified by the deploy-argocd pipeline
 
 port: 80
 
