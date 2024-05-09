@@ -11,6 +11,7 @@ env:
   AWS_REGION: us-east-1
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  PROJECT: anna
   SYSTEM: meme-web
 
 jobs:
@@ -28,7 +29,7 @@ jobs:
       #     helm: '3.11.2'
 
       - name: Configure kubeconfig
-        run: aws eks --region $AWS_REGION update-kubeconfig --name $SYSTEM-cluster
+        run: aws eks --region $AWS_REGION update-kubeconfig --name $PROJECT-cluster
 
       - name: Deploy ArgoCD
         run: helm install argocd -n argocd helm-charts/infra/argo-cd --values helm-charts/infra/argo-cd/values-custom.yaml --dependency-update --create-namespace
