@@ -31,8 +31,9 @@ jobs:
 
       - name: Terraform apply backend
       #   id: apply-backend
-        run: terraform apply -auto-approve
         working-directory: terraform/backend
+        continue-on-error: true
+        run: terraform apply -auto-approve
       #   continue-on-error: true
       #   env:
       #     ARM_CLIENT_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
