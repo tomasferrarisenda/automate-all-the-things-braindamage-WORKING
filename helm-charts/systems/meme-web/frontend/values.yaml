@@ -1,4 +1,4 @@
-system: anna # This value was modified by the initial-setup python script
+system: meme-web # This value was modified by the initial-setup python script
 
 service: frontend
 
@@ -8,12 +8,12 @@ port: 80
 
 deployment:
   image:
-    repository: tferrari92/anna-frontend # This value was modified by the initial-setup python script
+    repository: tferrari92/meme-web-frontend # This value was modified by the initial-setup python script
   labels:
-    # app: anna-frontend
+    # app: meme-web-frontend
     service: frontend
-    system: anna # This value was modified by the initial-setup python script
-    backstage.io/kubernetes-id: anna-frontend # This value was modified by the initial-setup python script
+    system: meme-web # This value was modified by the initial-setup python script
+    backstage.io/kubernetes-id: meme-web-frontend # This value was modified by the initial-setup python script
     istio: monitor
   
 
