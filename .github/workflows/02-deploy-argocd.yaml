@@ -2,6 +2,10 @@ name: 02-Deploy ArgoCD
 
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["01-Deploy AWS infrastructure"]
+    types:
+      - completed
 
 env:
   AWS_REGION: us-east-1

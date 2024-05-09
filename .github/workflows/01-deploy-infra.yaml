@@ -2,6 +2,7 @@ name: 01-Deploy AWS infrastructure
 
 on:
   workflow_dispatch:
+  
 
 env:
   AWS_REGION: us-east-1
