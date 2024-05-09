@@ -1,4 +1,4 @@
-name: Build & deploy meme-web-frontend image # This value was modified by the initial-setup python script
+name: Build & deploy meme-web-frontend image
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
       - 'application-code/meme-web/frontend/**'
 
 env:
-  SYSTEM: meme-web # This value was modified by the initial-setup python script
+  SYSTEM: meme-web
   SERVICE: frontend
 
 jobs:

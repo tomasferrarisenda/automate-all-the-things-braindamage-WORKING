@@ -9,8 +9,8 @@ on:
       - 'backstage/my-backstage/**'
 
 env:
-  APP_NAME: backstage # This value was modified by the initial-setup python script
-
+  APP_NAME: backstage
+  
 jobs:
   build-and-push:
     name: Build & push docker image

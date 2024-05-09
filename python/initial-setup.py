@@ -74,7 +74,7 @@ def check_if_valid(input_string):
 
 
 print_gradually(
-    "Alright, let's get the necessary details. What will be the name of your app?: ")
+    "Alright, let's get the necessary details. What will be the name of your project?: ")
 app_name = check_if_valid(input())
 
 print_gradually(
@@ -96,7 +96,7 @@ print_gradually("Give me a sec... ")
 # Create a dictionary with the variable names and their values
 data = {
     # "AATT_FULL_NAME": full_name,
-    "AATT_APP_NAME": app_name,
+    "AATT_PROJECT_NAME": app_name,
     "AATT_GITHUB_USERNAME": github_username,
     "AATT_AWS_REGION": aws_region,
     "AATT_DOCKERHUB_USERNAME": dockerhub_username,

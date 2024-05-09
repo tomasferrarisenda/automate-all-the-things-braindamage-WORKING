@@ -8,10 +8,10 @@ on:
       - completed
 
 env:
-  AWS_REGION: us-east-1
+  AWS_REGION: us-east-1 # This value was modified by the initial-setup python script
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  PROJECT: anna
+  PROJECT: anna # This value was modified by the initial-setup python script
   SYSTEM: meme-web
 
 jobs:
