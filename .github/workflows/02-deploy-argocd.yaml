@@ -7,7 +7,7 @@ env:
   AWS_REGION: us-east-1
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  APP_NAME: anna
+  SYSTEM: meme-web
 
 jobs:
   deploy-argocd:
@@ -24,7 +24,7 @@ jobs:
       #     helm: '3.11.2'
 
       - name: Configure kubeconfig
-        run: aws eks --region $AWS_REGION update-kubeconfig --name $APP_NAME-cluster
+        run: aws eks --region $AWS_REGION update-kubeconfig --name $SYSTEM-cluster
 
       - name: Deploy ArgoCD
         run: helm install argocd -n argocd helm-charts/infra/argo-cd --values helm-charts/infra/argo-cd/values-custom.yaml --dependency-update --create-namespace
@@ -71,14 +71,14 @@ jobs:
       - name: Modify values
         if: ${{ always() }}
         run: |
-          sed -i "s/host:.*/host: $(cat host_endpoint.txt | tr -d '\n') # This value was modified by the deploy-argocd pipeline/g" helm-charts/systems/my-app/frontend/values.yaml    
+          sed -i "s/host:.*/host: $(cat host_endpoint.txt | tr -d '\n') # This value was modified by the deploy-argocd pipeline/g" helm-charts/systems/$SYSTEM/frontend/values.yaml    
 
       - name: Commit changes to GitHub
         run: |
           git pull
           git config --global user.email "GitHubActions@DeployArgoCDWorkflow.com"
           git config --global user.name "GitHub Actions - Deploy ArgoCD Workflow"
-          git add helm-charts/systems/my-app/frontend/values.yaml
+          git add helm-charts/systems/$SYSTEM/frontend/values.yaml
           git commit -m "Frontend hosts URLs updated by GitHub Actions"
           git push
 
