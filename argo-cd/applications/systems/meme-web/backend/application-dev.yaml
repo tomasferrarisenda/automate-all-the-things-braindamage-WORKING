@@ -11,9 +11,9 @@ spec:
   destination:
     namespace: meme-web-dev
     server: https://kubernetes.default.svc
-  project: my-app
+  project: meme-web
   source:
-    path: helm-charts/systems/my-app/backend
+    path: helm-charts/systems/meme-web/backend
     helm:
       valueFiles:
         - environments/values-dev.yaml
