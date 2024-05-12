@@ -1,0 +1,12 @@
+system: matesito 
+
+service: backend 
+
+deployment:
+  image:
+    repository: tferrari92/matesito-backend
+  labels:
+    system: matesito
+    service: backend
+    backstage.io/kubernetes-id: matesito-backend
+    # istio: monitor

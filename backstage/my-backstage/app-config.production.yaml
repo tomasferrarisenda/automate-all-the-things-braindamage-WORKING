@@ -11,6 +11,9 @@ backend:
   # Refused to load the image 'https://i.imgur.com/LWGqYi2.jpg' because it violates the following Content Security Policy directive: "img-src 'self' data:".
   # See: https://john-tucker.medium.com/backstage-by-example-part-3-5a1efec3bcb1
   csp:
+
+    upgrade-insecure-requests: false # We need this. Since we are not using HTTPS, if we don't use this, backend resources will not load in the UI. See: https://github.com/backstage/backstage/issues/23247#issuecomment-1971454432
+  
     connect-src: ["'self'", 'http:', 'https:']
     # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
     # Default Helmet Content-Security-Policy values can be removed by setting the key to false

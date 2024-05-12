@@ -1,0 +1,8 @@
+environment: prod
+
+deployment:
+  image:  
+    tag: 15
+  replicas: 1
+  labels:
+    full-name: matesito-backend-prod

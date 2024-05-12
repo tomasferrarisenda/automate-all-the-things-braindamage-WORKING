@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: matesito
+  description: description matesito
+  tags:
+    - mate
+spec:
+  owner: group:default/matesito-team

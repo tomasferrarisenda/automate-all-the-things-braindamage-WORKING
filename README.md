@@ -63,6 +63,7 @@ This Braindamage Edition builds upon the [Overload Edition](https://github.com/t
     - [Plugins I've added](#plugins-ive-added)
     - [Templates I've created](#templates-ive-created)
     - [My arbitrary rules](#my-arbitrary-rules)
+  - [Meme-Web](#meme-web)
 - [AWS Infrastructure Deployment Pipeline](#aws-infrastructure-deployment-pipeline)
   - [Description](#description)
   - [Instructions](#instructions)
@@ -77,12 +78,12 @@ This Braindamage Edition builds upon the [Overload Edition](https://github.com/t
 - [Sealed Secrets Pipeline](#sealed-secrets-pipeline)
   - [Description](#description-2)
   - [Instructions](#instructions-2)
-- [Backend Service Build & Deploy Pipeline](#backend-service-build--deploy-pipeline)
+<!-- - [Backend Service Build & Deploy Pipeline](#backend-service-build--deploy-pipeline)
   - [Description](#description-3)
   - [Instructions](#instructions-3)
 - [Frontend Service Build & Deploy Pipeline](#frontend-service-build--deploy-pipeline)
   - [Description](#description-4)
-  - [Instructions](#instructions-4)
+  - [Instructions](#instructions-4) -->
 - [Kubernetes Tools Management](#kubernetes-tools-management)
   - [Description](#description-5)
   - [Instructions](#instructions-5)
@@ -164,7 +165,7 @@ Our app is a very simple static website, but I'm not spoiling it for you. You'll
 
 ## Disclaimer
 
-This is not a free project, it will cost you between $1 US dollars and $10 depending on how long you run the resources for. That's assuming you run them for a few hours tops, not days. Always remember to run the [destroy-all-the-things pipeline](/.github/workflows/06-destroy-all-the-things.yaml) when you are done.
+This is not a free project, it will cost you between $1 US dollars and $10 depending on how long you run the resources for. That's assuming you run them for a few hours tops, not days. Always remember to run the [destroy-all-the-things pipeline](/.github/workflows/04-destroy-all-the-things.yaml) when you are done.
 
 Some things could have been further automated but I prioritized modularization and separation of concerns.<br>
 
@@ -395,7 +396,8 @@ It generates a Pull Request which includes a new User manifest. When merged, the
 Creates all the boilerplate files and directories in an existing repo for deploying a new Node.js service in Kubernetes:
 1. The application code directory and files, which will saved in [the application-code directory](/application-code/).
 2. The helm chart, which will be saved in [the helm-charts/systems directory](/helm-charts/systems/).
-3. The build and push GitHub workflow manifest, which will be saved [the .github/workflows directory](/.github/workflows/) (working with GitHub Workflows is out of the scope of this lab).
+3. The application.yaml files which will be saved in [the argo-cd/applications/systems/ directory](/argo-cd/applications/systems/).
+4. The build and deploy GitHub workflow manifest, which will be saved [the .github/workflows directory](/.github/workflows/) (working with GitHub Workflows is out of the scope of this lab).
 
 It generates a Pull Request which includes all these files al directories.
 </br>
@@ -404,7 +406,8 @@ It generates a Pull Request which includes all these files al directories.
 Creates all the boilerplate files and directories in an existing repo for deploying a new NGINX service in Kubernetes:
 1. The application code directory and files, which will saved in [the application-code directory](/application-code/).
 2. The helm chart, which will be saved in [the helm-charts/systems directory](/helm-charts/systems/).
-3. The build and push GitHub workflow manifest, which will be saved [the .github/workflows directory](/.github/workflows/) (working with GitHub Workflows is out of the scope of this lab).
+3. The application.yaml files which will be saved in [the argo-cd/applications/systems/ directory](/argo-cd/applications/systems/).
+4. The build and deploy GitHub workflow manifest, which will be saved [the .github/workflows directory](/.github/workflows/) (working with GitHub Workflows is out of the scope of this lab).
 
 It generates a Pull Request which includes all these files al directories.
 
@@ -415,7 +418,7 @@ It generates a Pull Request which includes all these files al directories.
 #### - App-config management 
 The app-config is the file that defines the Backstage configuration. You will find three instances of app-config:
 1. [The app-config.yaml file](/backstage/my-backstage/app-config.yaml): This is the config that will be used for development and testing purposes when running locally with `yarn dev` command.
-2. [The app-config.production.yaml file](/backstage/my-backstage/app-config.yaml): This is the config that will be used for building the Docker image that will be deployed in Minikube. You will notice that it's missing the catalog configuration. That's because the catalog configuration will be passed in through a ConfigMap.
+2. [The app-config.production.yaml file](/backstage/my-backstage/app-config.production.yaml): This is the config that will be used for building the Docker image that will be deployed in Minikube. You will notice that it's missing the catalog configuration. That's because the catalog configuration will be passed in through a ConfigMap.
 3. [The helm chart values-custom.yaml file](/helm-charts/infra/backstage/values-custom.yaml): Since the catalog configuration is something that might need to be modified more often, I decided it should be specified in a ConfigMap and not hard coded into the Docker image. You can find the catalog configuration in the values-custom.yaml file of the Backstage helm chart. Helm will create a ConfigMap with these values and pass it in to the Backstage pod at the time of creation.
 </br>
 
@@ -426,9 +429,22 @@ So we will not define the members of a group in the Group manifest, but we will 
 
 Also, we will always have the spec.children value of Group manifests as an empty array and the spec.parent value filled with whoever the parent group of that group is. If it has no parent, the value of spec.parent should be "root".
 
+</br>
+
+## Meme-Web
+
+I've left the meme-web as an example so that you can use it as reference when deploying your new systems, users, groups, services, etc. These are some of the files you might want to check out:
+- [component](/application-code/meme-web/backend/catalog-info.yaml)
+- [resource](/application-code/meme-web/redis/catalog-info.yaml)
+- [api](/application-code/meme-web/backend/api-info.yaml)
+- [system](/backstage/entities/systems/meme-web.yaml)
+- [group](/backstage/entities/groups/meme-web-team.yaml)
+- [user](/backstage/entities/users/geralt.yaml)
+
+
 <br/>
 <br/>
-<p title="Kevin James" align="center"> <img width="460" src="https://i.imgur.com/ULcCyVx.jpg"> </p>
+<p title="Hard right" align="center"> <img width="460" src="https://i.imgur.com/Stl0y81.jpg"> </p>
 <br/>
 <br/>
 
@@ -606,7 +622,7 @@ Same will be done for the GitHub token secret that Backstage will use.
 <br/>
 
 
-# BACKEND SERVICE BUILD & DEPLOY PIPELINE
+<!-- # BACKEND SERVICE BUILD & DEPLOY PIPELINE
 
 ## Description
 
@@ -683,7 +699,7 @@ For the infrastructure, same as before. If the infrastrucure team needs to, for 
 <br/>
 <p title="Anakin" align="center"> <img width="460" src="https://i.imgur.com/V1qgXKM.jpg"> </p>
 <br/>
-<br/>
+<br/> -->
 
 
 # KUBERNETES TOOLS MANAGEMENT

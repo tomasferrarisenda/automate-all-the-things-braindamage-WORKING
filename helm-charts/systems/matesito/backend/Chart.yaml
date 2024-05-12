@@ -1,0 +1,4 @@
+apiVersion: v2
+name: matesito-backend
+description: A Helm chart for deploying matesito-backend
+version: 1.0

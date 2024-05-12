@@ -1,13 +1,13 @@
 environment: dev
     
-redis_host: master.anna-dev-elascache-rep-group.shelfr.use1.cache.amazonaws.com
+redis_host: master.meme-web-dev-elascache-rep-group.shelfr.use1.cache.amazonaws.com
 
 deployment:
   image:  
-    tag: 2
+    tag: 1
   replicas: 1
   labels:
     full-name: meme-web-backend-dev # This value was modified by the initial-setup python script
 
 secret:
-  redis_pass: AgC/bsVzchxBq5Dg7uBSnxXypGcTvwk+L+ExWjE1A5FRFeSBrim58K8BXBwTSJo8NUWIwTDtPsI7IdlA6qbHL95rffn4eaGbSPX/SUhW+ZfT819WH8ZMqeAq4P34Ao463mKwP8ZEi2mSUNN4cI74lhmu9ht7kINoqYKpRDQmsMJVI+e2aLGhFGA8eLvDfj15LPddJA+q3pbJWshbNG0EdpuQXBUyF0M9T9AsTFD/PwGJicZ3TCmecSo4pL/CEnyoX6tZwKmzJSGwpIrSu1bxfq+boKBGBEQOnJjsKbG7I/X5jTx0c2joswW8GUuvZUZx/ynI1GimxEmyG+BoM1iZjta6YyKko5poxvDaCZkO25LduJyqeG+rUbSvK24MaopfQYzoyD2G+qb0wZ+9S0VcSL2MdLu7Wuy8SPvE9M6YiM5i3oIVmrUVhhCKT/in1cXNJwGdrLOrO0yzLsMde2VIC3CF/5b6jTIRVbjwbx4Y1/sDpF0D5Zd4EUKiLoLBs5IPVDv0TKvmBrxI+/t4RbjerNhLsq3kEgmWr+CeIEvmW+kqNlad0y8TN3N/Pb+aYhfVmyEI/u96MCUhQmou0M+Hlgjmejlkhcl1nwt+pJFXbsgIc6qgNQSICJryIVuaqDUvysVRKUz/SsDPgVdyo1L28C1ZWVRywySk5KhddWHU+sR/qNHqTG2xIyE0AByJznRDGAuJyPV6sOX3zTEarcWqCHLeEfXkc8LpedKe29c= # This value was modified by the sealed-secrets pipeline
+  redis_pass: AgBXnx86SVsR4FJwhqPD2HI7wdxcfwssjKBb50qUJunhg5x5iCR//BiIeLJc9WdbbABUgKoLHEKlsE4ysFaZHrjeQzrhmm9TTeaDB/rMJ0tut9enjqtanJpaYc3zk5pcN5S2eQv8SskRDPi6JVcjcOXvcGOwzrBazb1+qeMJrxQniB4o4hOGrC0+1juoCmlL7oKoAjoxIro+MTHdwvN8B7v0k12Q96cLi5GGGvt+NeU0pWrtNeuNZIvlBcGBQX510GidMB2S3E2wyg2BnIxCR/qR9ZHJ6SNExIgZfiSNjzppbXMVJn+beD+0YUSo9Ivhp0maq9NLnyN4iDB5DYP9Ep5tl4FmoTJScMVK/rwk/wJA8GcK7RhEaflWnjQluhLCM8/9m22/irkRFEzqMfaGqMTyKKjaQ9XhaI65j4X6tiLDXvthEV84KxnKWQ5nPhbIn75RYE+Yn0/HswtKj7QjqbOwS8OdOgBpxamLvMhdrW0jYJjHzF04aLsuidBHk8gBwV8xTQPp/oSN53kVnj41uhbFbqjZFwe6jeaXkxPwoCxq5PTQ6qDpBJHC3qN8h8nr+J01xzLnSkJg3P8spQ65Sm3fi3e3b4jwn+PLNFCa6Ms1yScPKy5rS56aubKno31Qb2G4awLihCfQYrTXDvC74eaIhRIYUN2iLsjD637CsMwKOP9/mHMix8dJBv748CDyO696PZ4DRoYAVF2d/XBq7fyeLxIRC91agZ7wS6I= # This value was modified by the sealed-secrets pipeline

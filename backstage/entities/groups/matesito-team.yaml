@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: matesito-team
+  title: matesito-team
+  description: descripcion de amtesito
+spec:
+  type: team
+  children: []
+  profile:
+    email: yourapp@team.com
+    # slack: 

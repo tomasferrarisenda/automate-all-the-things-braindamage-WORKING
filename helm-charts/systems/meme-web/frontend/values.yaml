@@ -2,7 +2,7 @@ system: meme-web # This value was modified by the initial-setup python script
 
 service: frontend
 
-host: ae158c56062494efcafbd3f972cfbecb-2098703244.us-east-1.elb.amazonaws.com # This value was modified by the deploy-argocd pipeline
+host: adf97a036a74e43999e47affe9cdb813-1655543340.us-east-1.elb.amazonaws.com # This value was modified by the deploy-argocd pipeline
 
 port: 80
 

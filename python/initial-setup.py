@@ -75,14 +75,14 @@ def check_if_valid(input_string):
 
 print_gradually(
     "Alright, let's get the necessary details. What will be the name of your project?: ")
-app_name = check_if_valid(input())
+project_name = check_if_valid(input())
 
 print_gradually(
     "Great name! Sounds professional! What's your GitHub username?: ")
 github_username = input()
 
 print_gradually(
-    "Got it! In what AWS region will you be deploying your resources? (e.g. 'us-east-2'): ")
+    "Got it! In what AWS region will you be deploying your resources? (e.g. 'us-east-1'): ")
 aws_region = input()
 
 print_gradually("Good choice! We're almost done. What's your DockerHub username?: ")
@@ -96,7 +96,7 @@ print_gradually("Give me a sec... ")
 # Create a dictionary with the variable names and their values
 data = {
     # "AATT_FULL_NAME": full_name,
-    "AATT_PROJECT_NAME": app_name,
+    "AATT_PROJECT_NAME": project_name,
     "AATT_GITHUB_USERNAME": github_username,
     "AATT_AWS_REGION": aws_region,
     "AATT_DOCKERHUB_USERNAME": dockerhub_username,
@@ -119,7 +119,17 @@ def search_and_replace(directory, replacements):
     for root, _, files in os.walk(directory):
         for file_name in files:
             file_path = os.path.join(root, file_name)
-            if file_name in ['application-dev.yaml',
+            if file_name in [ # .github/workflows
+                             '01-deploy-infra.yaml',
+                             '02-deploy-argocd.yaml',
+                             '03-sealed-secret-generator.yaml',
+                             '04-destroy-all-the-things.yaml',
+
+                             # application-code
+                             'catalog-info.yaml',
+
+                             # argo-cd
+                             'application-dev.yaml',
                              'application-stage.yaml',
                              'application-prod.yaml',
                              'backstage-application.yaml',
@@ -137,18 +147,20 @@ def search_and_replace(directory, replacements):
                              'argocd-application.yaml',
                              'argocd-app-of-projects-application.yaml',
                              'argocd-app-of-apps-application.yaml',
-                             '00-build-and-push-backstage.yaml',
-                             '01-deploy-infra.yaml',
-                             '02-deploy-argocd.yaml',
-                             '03-sealed-secret-generator.yaml',
-                             '04-build-and-deploy-backend.yaml',
-                             '05-build-and-deploy-frontend.yaml',
-                             '06-destroy-all-the-things.yaml',
+
+                             # backstage
+                             'build-push-image.sh',
+                             'app-config.yaml',
+                            
+                             # helm-charts
                              'Chart.yaml',
                              'values.yaml',
+                             'values-custom.yaml',
                              'values-dev.yaml',
                              'values-stage.yaml',
                              'values-prod.yaml',
+
+                             # terraform
                              'terraform.tfvars',
                              'provider.tf']:
                 replace_keys_in_file(file_path, replacements)

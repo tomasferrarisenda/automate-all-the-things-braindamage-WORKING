@@ -1,0 +1,14 @@
+environment: dev
+    
+deployment:
+  image:  
+    tag: 32
+  replicas: 1
+  labels:
+    full-name: matesito-frontend-dev
+
+configmap: 
+  nginxConf: |-
+      location /api {
+          proxy_pass http://matesito-backend-dev-service:3000/;
+      }
